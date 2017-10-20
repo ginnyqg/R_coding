@@ -33,6 +33,9 @@ pairs(dataset_you_name_it)
 #boxplot
 boxplot(“y variable”~”x variable”, data = dataset_you_name_it)
 
+#histogram for categorical variables
+barplot(table(dataset_you_name_it$categorical_column))
+
 #install package
 install.packages(“package_name”)
 
