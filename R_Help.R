@@ -158,6 +158,11 @@ ordered()
 
 dataset_you_name_it$column1 = ordered(dataset_you_name_it$column1, levels = c('lvl1', 'lvl2', 'lvl3', 'lvl4'))
 
+#check levels of ordinal variables
+levels(dataset_you_name_it$column1)
+
+#counts of levels in a categorical variable
+table(dataset_you_name_it$column1)
 
 
 #get unique value
@@ -204,6 +209,9 @@ dataset_you_name_it$column1[is.na(dataset_you_name_it$column1)] = constant_c
 female.height.no.missing.value = mean(data$height[which(data$set == 'Female')], na.rm = T)
 
 data$height[which(data$set == 'Female' & is.na(data$height))] = female.height.no.missing.value
+
+#count of missing value in a column
+sum(is.na(df$col))
 
 
            
