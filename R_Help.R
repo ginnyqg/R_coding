@@ -149,6 +149,15 @@ sqldf('select column1, avg(numeric_column) from dataset_you_name_it group by col
 #convert to factor
 as.factor()
 
+#init_num_column has value 0, 1
+dataset_you_name_it$init_num_column = as.factor(dataset_you_name_it$init_num_column)
+
+
+library(BCA)
+
+dataset_you_name_it$init_num_column <- relabel.factor(dataset_you_name_it$init_num_column, 
+                                new.labels=c('No','Yes'))
+
 
 #factors: categorical variables, nominal varibles
 
