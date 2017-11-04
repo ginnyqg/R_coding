@@ -43,6 +43,9 @@ boxplot(“y variable”~”x variable”, data = dataset_you_name_it)
 #histogram for categorical variables
 barplot(table(dataset_you_name_it$categorical_column))
 
+#histrogram for numerical variables
+hist(dataset_you_name_it$numerical_column, labels = TRUE)
+
 #install package
 install.packages(“package_name”)
 
@@ -186,7 +189,7 @@ unique(dataset_you_name_it$column_x)
 
 
 #find which rows have value1
-which(dataset_you_name_it#column_x == 'value1')
+which(dataset_you_name_it$column_x == 'value1')
 
 
 #replace rows with value of value1 with value2
