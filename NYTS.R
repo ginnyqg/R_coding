@@ -1,5 +1,4 @@
 
-
 ## **Definitions**
 
 #Non-Trier - Someone who reports not having tried even a single puff of a cigarette in their life.
@@ -29,6 +28,7 @@ NYTS_2015 <- read_csv("nyts2015_dataset.csv")
 #This function classifies the respondent's primary segment, based on their responses to three questions.
 #These questions are the worded the same across all surveys, but their number in the survey might differ, so the function allows me to change the inputs accordingly.
 #Any respondents that lack a value for classification should be left as a null value.
+
 cig_segment_function <- function(tried, lifetime, thirtydays) {
   ifelse(tried==2, 'Non-Trier',
          (ifelse(tried==1 & lifetime > 1 & lifetime < 8, 'Experimenter',
@@ -141,6 +141,11 @@ actors_tobacco_function <- function(actors_tobacco) {
  (ifelse(actors_tobacco == 6, 'Always', NA)))))))))))}
 
 
+#This function checks if anyone lives with the youth now used any form of tobacco
+noone_live_together_used_tobacco_function <- function(noone_live_together_used_tobacco) {
+ ifelse(noone_live_together_used_tobacco == 1, TRUE, NA)}
+
+
 #This function categorizes timeframe youth seriously think about quitting all tobacco in 2011
 timeframe_quit_2011_function <- function(timeframe_quit_2011) {
  ifelse(timeframe_quit_2011 == 1, 'Never used tobacco',
@@ -159,10 +164,6 @@ timeframe_quit_2012_2015_function <- function(timeframe_quit_2012_2015) {
  (ifelse(timeframe_quit_2012_2015 == 6, 'Not think about quitting', NA)))))))))}
 
 
-#This function checks if anyone lives with the youth now used any form of tobacco
-live_together_used_tobacco_function <- function(live_together_used_tobacco) {
- ifelse(live_together_used_tobacco == 1, TRUE, NA)}
-
 
 #CLEAN AND CREATE SUBSETS OF EACH YEAR'S DATASET
 
@@ -179,7 +180,7 @@ NYTS_2011_subset <- NYTS_2011 %>%
          ads_Internet = ads_Internet_function(qn40),
          ads_news_mag = ads_news_mag_function(qn41),
          actors_tobacco = actors_tobacco_function(qn46),
-         live_together_used_tobacco = live_together_used_tobacco_function(qn67j),
+         noone_live_together_used_tobacco = noone_live_together_used_tobacco_function(qn67j),
          timeframe_quit = timeframe_quit_2011_function(qn58),
          qn4_agg = hisp_2011_agg(qn4)) %>%
   mutate(multiethnic = multi_ethnic_tag(qn5a, qn5b, qn5c, qn5d, qn5e, qn4_agg)) %>%
@@ -187,7 +188,7 @@ NYTS_2011_subset <- NYTS_2011 %>%
   mutate(cigarette_subsegment = ifelse(qn7==2 & qn8==4 & qn9 == 3 & qn10 == 4, 'Non-Trier: Not at Risk',
                                        (ifelse(qn7==2 & (qn8 != 4 | qn9 != 3 |qn10 != 4), 'Non-Trier: At Risk', cigarette_segment)
                                        ))) %>%
-  select(year, weighted_pop, ethnicity, grade_level, cigarette_segment, cigarette_subsegment, ecigarette_segment, age_cigar_first, age_tobacco_first, ads_Internet, ads_news_mag, actors_tobacco, live_together_used_tobacco, timeframe_quit)
+  select(year, weighted_pop, ethnicity, grade_level, cigarette_segment, cigarette_subsegment, ecigarette_segment, age_cigar_first, age_tobacco_first, ads_Internet, ads_news_mag, actors_tobacco, noone_live_together_used_tobacco, timeframe_quit)
 
 
 #Creates dataset for 2012
@@ -201,7 +202,7 @@ NYTS_2012_subset <- NYTS_2012 %>%
          ads_Internet = ads_Internet_function(qn45),
          ads_news_mag = ads_news_mag_function(qn46),
          actors_tobacco = actors_tobacco_function(qn51),
-         live_together_used_tobacco = live_together_used_tobacco_function(qn80e),
+         noone_live_together_used_tobacco = noone_live_together_used_tobacco_function(qn80e),
          timeframe_quit = timeframe_quit_2012_2015_function(qn57),
          qn4_agg = hisp_2011_agg(qn4)) %>%
   mutate(multiethnic = multi_ethnic_tag(qn5a, qn5b, qn5c, qn5d, qn5e, qn4_agg)) %>%
@@ -209,7 +210,7 @@ NYTS_2012_subset <- NYTS_2012 %>%
   mutate(cigarette_subsegment = ifelse(qn7==2 & qn8==4 & qn9 == 4 & qn10 == 4, 'Non-Trier: Not at Risk',
                                        (ifelse(qn7==2 & (qn8 != 4 | qn9 != 4 |qn10 != 4), 'Non-Trier: At Risk', cigarette_segment)
                                        ))) %>%
-  select(year, weighted_pop, ethnicity, grade_level, cigarette_segment, cigarette_subsegment, ecigarette_segment, age_cigar_first, age_tobacco_first, ads_Internet, ads_news_mag, actors_tobacco, live_together_used_tobacco, timeframe_quit)
+  select(year, weighted_pop, ethnicity, grade_level, cigarette_segment, cigarette_subsegment, ecigarette_segment, age_cigar_first, age_tobacco_first, ads_Internet, ads_news_mag, actors_tobacco, noone_live_together_used_tobacco, timeframe_quit)
 
 
 #Creates dataset for 2013
@@ -223,7 +224,7 @@ NYTS_2013_subset <- NYTS_2013 %>%
          ads_Internet = ads_Internet_function(qn40),
          ads_news_mag = ads_news_mag_function(qn41),
          actors_tobacco = actors_tobacco_function(qn45),
-         live_together_used_tobacco = live_together_used_tobacco_function(qn66j),
+         noone_live_together_used_tobacco = noone_live_together_used_tobacco_function(qn66j),
          timeframe_quit = timeframe_quit_2012_2015_function(qn56),
          qn4_agg = hisp_2013_agg(qn4b, qn4c, qn4d, qn4e)) %>%
   mutate(multiethnic = multi_ethnic_tag(qn5a, qn5b, qn5c, qn5d, qn5e, qn4_agg)) %>%
@@ -231,7 +232,7 @@ NYTS_2013_subset <- NYTS_2013 %>%
   mutate(cigarette_subsegment = ifelse(qn9==2 & qn10==4 & qn11 == 4 & qn12 == 4, 'Non-Trier: Not at Risk',
                                        (ifelse(qn9==2 & (qn10 != 4 | qn11 != 4 |qn12 != 4), 'Non-Trier: At Risk', cigarette_segment)
                                        ))) %>%
-  select(year, weighted_pop, ethnicity, grade_level, cigarette_segment, cigarette_subsegment, ecigarette_segment, age_cigar_first, age_tobacco_first, ads_Internet, ads_news_mag, actors_tobacco, live_together_used_tobacco, timeframe_quit)
+  select(year, weighted_pop, ethnicity, grade_level, cigarette_segment, cigarette_subsegment, ecigarette_segment, age_cigar_first, age_tobacco_first, ads_Internet, ads_news_mag, actors_tobacco, noone_live_together_used_tobacco, timeframe_quit)
 
 
 #Creates dataset for 2014
@@ -245,7 +246,7 @@ NYTS_2014_subset <- NYTS_2014 %>%
          ads_Internet = ads_Internet_function(qn64),
          ads_news_mag = ads_news_mag_function(qn65),
          actors_tobacco = actors_tobacco_function(qn67),
-         live_together_used_tobacco = live_together_used_tobacco_function(qn80j),
+         noone_live_together_used_tobacco = noone_live_together_used_tobacco_function(qn80j),
          timeframe_quit = timeframe_quit_2012_2015_function(qn50),
          qn4_agg = hisp_2013_agg(qn4b, qn4c, qn4d, qn4e)) %>%
   mutate(multiethnic = multi_ethnic_tag(qn5a, qn5b, qn5c, qn5d, qn5e, qn4_agg)) %>%
@@ -253,7 +254,7 @@ NYTS_2014_subset <- NYTS_2014 %>%
   mutate(cigarette_subsegment = ifelse(qn7==2 & qn8==4 & qn9 == 4 & qn10 == 4, 'Non-Trier: Not at Risk',
                                        (ifelse(qn7==2 & (qn8 != 4 | qn9 != 4 |qn10 != 4), 'Non-Trier: At Risk', cigarette_segment)
                                        ))) %>%
-  select(year, weighted_pop, ethnicity, grade_level, cigarette_segment, cigarette_subsegment, ecigarette_segment, age_cigar_first, age_tobacco_first, ads_Internet, ads_news_mag, actors_tobacco, live_together_used_tobacco, timeframe_quit)
+  select(year, weighted_pop, ethnicity, grade_level, cigarette_segment, cigarette_subsegment, ecigarette_segment, age_cigar_first, age_tobacco_first, ads_Internet, ads_news_mag, actors_tobacco, noone_live_together_used_tobacco, timeframe_quit)
 
 
 #Creates dataset for 2015
@@ -267,7 +268,7 @@ NYTS_2015_subset <- NYTS_2015 %>%
          ads_Internet = ads_Internet_function(qn65),
          ads_news_mag = ads_news_mag_function(qn66),
          actors_tobacco = actors_tobacco_function(qn68),
-         live_together_used_tobacco = live_together_used_tobacco_function(qn77j),
+         noone_live_together_used_tobacco = noone_live_together_used_tobacco_function(qn77j),
          timeframe_quit = timeframe_quit_2012_2015_function(qn53),
          qn4_agg = hisp_2013_agg(qn4b, qn4c, qn4d, qn4e)) %>%
   mutate(multiethnic = multi_ethnic_tag(qn5a, qn5b, qn5c, qn5d, qn5e, qn4_agg)) %>%
@@ -275,7 +276,7 @@ NYTS_2015_subset <- NYTS_2015 %>%
   mutate(cigarette_subsegment = ifelse(qn6==2 & qn7==4 & qn8 == 4 & qn9 == 4, 'Non-Trier: Not at Risk',
                                        (ifelse(qn6==2 & (qn7 != 4 | qn8 != 4 |qn9 != 4), 'Non-Trier: At Risk', cigarette_segment)
                                        ))) %>%
-  select(year, weighted_pop, ethnicity, grade_level, cigarette_segment, cigarette_subsegment, ecigarette_segment, age_cigar_first, age_tobacco_first, ads_Internet, ads_news_mag, actors_tobacco, live_together_used_tobacco, timeframe_quit)
+  select(year, weighted_pop, ethnicity, grade_level, cigarette_segment, cigarette_subsegment, ecigarette_segment, age_cigar_first, age_tobacco_first, ads_Internet, ads_news_mag, actors_tobacco, noone_live_together_used_tobacco, timeframe_quit)
 
 
 #COMBINES DATASETS ACROSS THE FIVE YEARS
@@ -287,6 +288,8 @@ df_5YEAR <- data.frame(NYTS_5YEAR_subset)
 #Take a look of first few rows in the dataframe
 head(df_5YEAR)
 
+#Check dimension of data frame
+dim(df_5YEAR)
 
 #Check unique values of newly added fields
 unique(df_5YEAR[,'age_cigar_first'])
@@ -294,7 +297,7 @@ unique(df_5YEAR[,'age_tobacco_first'])
 unique(df_5YEAR[,'ads_Internet'])
 unique(df_5YEAR[,'ads_news_mag'])
 unique(df_5YEAR[,'actors_tobacco'])
-unique(df_5YEAR[,'live_together_used_tobacco'])
+unique(df_5YEAR[,'noone_live_together_used_tobacco'])
 unique(df_5YEAR[,'timeframe_quit'])
 
 
@@ -360,3 +363,290 @@ NYTS_by_year_ecigsegment_nontriers <-
   filter(!is.na(ecigarette_segment)) %>%
   summarize(weighted_pop = sum(weighted_pop)) %>%
   mutate(percent = weighted_pop/sum(weighted_pop)*100) 
+
+
+
+#VISUALIZATIONS
+#VISUALIZATIONS
+#Create line chart mapping segment percentages, with custom color choices
+ggplot(NYTS_by_year_cigsegment, aes(year, percent, color=cigarette_segment)) +
+  geom_line(size=1) +
+  geom_point(size=3) +
+  scale_color_manual(values=c("#003366", "#CC0066", "#CC0000", "#CCCCCC"))+
+  labs(color="Segment", y="Percent of Teens (%)", x="Year") +
+  theme(axis.text.x = element_text(size=8), axis.title.x = element_text(size=9), axis.text.y = element_text(size=8), axis.title.y = element_text(size=9), legend.text = element_text(size=8), legend.title = element_text(size=8))
+
+#Create line chart mapping Non-Trier segment percentages, with custom color choices
+ggplot(NYTS_by_year_cigsubsegment, aes(year, weighted_pop, fill=cigarette_subsegment)) +
+  geom_area(position="fill") +
+  scale_color_manual(values=c("#FF9999", "#339966")) +
+  labs(fill="Subsegment", y="Percent of Non-Triers", x="Year") +
+  theme(axis.text.x = element_text(size=8), 
+        axis.title.x = element_text(size=9), 
+        axis.text.y = element_text(size=8), 
+        axis.title.y = element_text(size=9), 
+        legend.text = element_text(size=8), 
+        legend.title = element_text(size=9))
+
+
+#Creates stacked area chart mapping segment percentages, with custom color choices
+ggplot(NYTS_by_year_cigsegment_grade, aes(year, percent, color=cigarette_segment)) +
+  geom_line(size=1) +
+  geom_point(size=3) +
+  scale_color_manual(values=c("#003366", "#CC0066", "#CC0000", "#CCCCCC"))+
+  labs(color="Segment", y="Percent of Teens (%)", x="Year")+
+  theme(axis.text.x = element_text(size=8), 
+        axis.title.x = element_text(size=9), 
+        axis.text.y = element_text(size=8), 
+        axis.title.y = element_text(size=9), 
+        legend.text = element_text(size=8), 
+        legend.title = element_text(size=9)) +
+  facet_wrap(~grade_level)
+
+
+#Creates a line chart mapping E-cigarette segment percentages, with custom color choices
+ggplot(NYTS_by_year_ecigsegment, aes(year, percent, color=ecigarette_segment)) +
+  geom_line(size=1) +
+  geom_point(size=3) +
+  labs(color="Segment", y="Percent of Teens (%)", x="Year")+
+  theme(axis.text.x = element_text(size=8), 
+        axis.title.x = element_text(size=9), 
+        axis.text.y = element_text(size=8), 
+        axis.title.y = element_text(size=9), 
+        legend.text = element_text(size=8), 
+        legend.title = element_text(size=9)) +  
+  scale_color_manual(values=c("#CCCCCC", "#CC0000"))
+
+
+#ads_Internet cleansing
+
+#Convert ads_Internet categories to ordinal variable
+df_5YEAR$ads_Internet = ordered(df_5YEAR$ads_Internet, levels = c('Never', 'Rarely', 'Sometimes', 'Most of the time', 'Always'))
+
+#Examine levels for the ordered variable ads_Internet
+levels(df_5YEAR$ads_Internet)
+
+#Find counts for ads_Internet
+table(df_5YEAR$ads_Internet)
+
+#Find count for NA in ads_Internet
+sum(is.na(df_5YEAR$ads_Internet))
+
+#Plot bar chart to show distribution of ordinal variable and missing value for ads_Internet
+ggplot(df_5YEAR) + geom_bar(aes(x = ads_Internet, fill = 'red')) + labs(x = 'Frequency') + labs(y = 'Count') + labs(title = 'How often does youth see tobacco ads on Internet?', subtitle = 'After')
+
+
+
+#Plot “Before” bar chart to show distribution of ads_Internet without data cleaning and processing  for comparison
+#Revert ads_Internet back to no function applied, just input (question number) from different years.
+
+NYTS_2011_subset <- NYTS_2011 %>%
+   mutate(cigarette_segment = cig_segment_function(qn7, qn12, qn13),
+          grade_level = grade_function(qn3),
+          ecigarette_segment = ecig_segment_function(eelcigt_r),
+          weighted_pop = wt,
+          age_cigar_first = age_group_cigar_function(qn22),
+          age_tobacco_first = age_group_tobacco_function(qn27),
+          ads_Internet = qn40,
+          ads_news_mag = ads_news_mag_function(qn41),
+          actors_tobacco = actors_tobacco_function(qn46),
+          noone_live_together_used_tobacco = noone_live_together_used_tobacco_function(qn67j),
+          timeframe_quit = timeframe_quit_2011_function(qn58),
+          qn4_agg = hisp_2011_agg(qn4)) %>%
+   mutate(multiethnic = multi_ethnic_tag(qn5a, qn5b, qn5c, qn5d, qn5e, qn4_agg)) %>%
+   mutate(ethnicity = ethnicity_function(qn5a, qn5b, qn5c, qn5d, qn5e, qn4_agg, multiethnic)) %>%
+   mutate(cigarette_subsegment = ifelse(qn7==2 & qn8==4 & qn9 == 3 & qn10 == 4, 'Non-Trier: Not at Risk',
+                                        (ifelse(qn7==2 & (qn8 != 4 | qn9 != 3 |qn10 != 4), 'Non-Trier: At Risk', cigarette_segment)
+                                        ))) %>%
+   select(year, weighted_pop, ethnicity, grade_level, cigarette_segment, cigarette_subsegment, ecigarette_segment, age_cigar_first, age_tobacco_first, ads_Internet, ads_news_mag, actors_tobacco, noone_live_together_used_tobacco, timeframe_quit)
+
+   
+NYTS_2012_subset <- NYTS_2012 %>%
+   mutate(cigarette_segment = cig_segment_function(qn7, qn12, qn13),
+          grade_level = grade_function(qn3),
+          ecigarette_segment = ecig_segment_function(eelcigt_r),
+          weighted_pop = wt,
+          age_cigar_first = age_group_cigar_function(qn24),
+          age_tobacco_first = age_group_tobacco_function(qn30),
+          ads_Internet = qn45,
+          ads_news_mag = ads_news_mag_function(qn46),
+          actors_tobacco = actors_tobacco_function(qn51),
+          noone_live_together_used_tobacco = noone_live_together_used_tobacco_function(qn80e),
+          timeframe_quit = timeframe_quit_2012_2015_function(qn57),
+          qn4_agg = hisp_2011_agg(qn4)) %>%
+   mutate(multiethnic = multi_ethnic_tag(qn5a, qn5b, qn5c, qn5d, qn5e, qn4_agg)) %>%
+   mutate(ethnicity = ethnicity_function(qn5a, qn5b, qn5c, qn5d, qn5e, qn4_agg, multiethnic)) %>%
+   mutate(cigarette_subsegment = ifelse(qn7==2 & qn8==4 & qn9 == 4 & qn10 == 4, 'Non-Trier: Not at Risk',
+                                        (ifelse(qn7==2 & (qn8 != 4 | qn9 != 4 |qn10 != 4), 'Non-Trier: At Risk', cigarette_segment)
+                                        ))) %>%
+   select(year, weighted_pop, ethnicity, grade_level, cigarette_segment, cigarette_subsegment, ecigarette_segment, age_cigar_first, age_tobacco_first, ads_Internet, ads_news_mag, actors_tobacco, noone_live_together_used_tobacco, timeframe_quit)
+ 
+   
+NYTS_2013_subset <- NYTS_2013 %>%
+   mutate(cigarette_segment = cig_segment_function(qn9, qn14, qn15),
+          grade_level = grade_function(qn3),
+          ecigarette_segment = ecig_segment_function(eelcigt_r),
+          weighted_pop = wt,
+          age_cigar_first = age_group_cigar_function(qn24),
+          age_tobacco_first = age_group_tobacco_function(qn29),
+          ads_Internet = qn40,
+          ads_news_mag = ads_news_mag_function(qn41),
+          actors_tobacco = actors_tobacco_function(qn45),
+          noone_live_together_used_tobacco = noone_live_together_used_tobacco_function(qn66j),
+          timeframe_quit = timeframe_quit_2012_2015_function(qn56),
+          qn4_agg = hisp_2013_agg(qn4b, qn4c, qn4d, qn4e)) %>%
+   mutate(multiethnic = multi_ethnic_tag(qn5a, qn5b, qn5c, qn5d, qn5e, qn4_agg)) %>%
+   mutate(ethnicity = ethnicity_function(qn5a, qn5b, qn5c, qn5d, qn5e, qn4_agg, multiethnic)) %>%
+   mutate(cigarette_subsegment = ifelse(qn9==2 & qn10==4 & qn11 == 4 & qn12 == 4, 'Non-Trier: Not at Risk',
+                                        (ifelse(qn9==2 & (qn10 != 4 | qn11 != 4 |qn12 != 4), 'Non-Trier: At Risk', cigarette_segment)
+                                        ))) %>%
+   select(year, weighted_pop, ethnicity, grade_level, cigarette_segment, cigarette_subsegment, ecigarette_segment, age_cigar_first, age_tobacco_first, ads_Internet, ads_news_mag, actors_tobacco, noone_live_together_used_tobacco, timeframe_quit)
+   
+
+NYTS_2014_subset <- NYTS_2014 %>%
+   mutate(cigarette_segment = cig_segment_function(qn7, qn12, qn13),
+          grade_level = grade_function(qn3),
+          ecigarette_segment = ecig_segment_function(eelcigt_r),
+          weighted_pop = wt,
+          age_cigar_first = age_group_cigar_function(qn23),
+          age_tobacco_first = age_group_tobacco_function(qn28),
+          ads_Internet = qn64,
+          ads_news_mag = ads_news_mag_function(qn65),
+          actors_tobacco = actors_tobacco_function(qn67),
+          noone_live_together_used_tobacco = noone_live_together_used_tobacco_function(qn80j),
+          timeframe_quit = timeframe_quit_2012_2015_function(qn50),
+          qn4_agg = hisp_2013_agg(qn4b, qn4c, qn4d, qn4e)) %>%
+   mutate(multiethnic = multi_ethnic_tag(qn5a, qn5b, qn5c, qn5d, qn5e, qn4_agg)) %>%
+   mutate(ethnicity = ethnicity_function(qn5a, qn5b, qn5c, qn5d, qn5e, qn4_agg, multiethnic)) %>%        
+   mutate(cigarette_subsegment = ifelse(qn7==2 & qn8==4 & qn9 == 4 & qn10 == 4, 'Non-Trier: Not at Risk',
+                                        (ifelse(qn7==2 & (qn8 != 4 | qn9 != 4 |qn10 != 4), 'Non-Trier: At Risk', cigarette_segment)
+                                        ))) %>%
+   select(year, weighted_pop, ethnicity, grade_level, cigarette_segment, cigarette_subsegment, ecigarette_segment, age_cigar_first, age_tobacco_first, ads_Internet, ads_news_mag, actors_tobacco, noone_live_together_used_tobacco, timeframe_quit)
+
+
+NYTS_2015_subset <- NYTS_2015 %>%
+   mutate(cigarette_segment = cig_segment_function(qn6, qn11, qn12),
+          grade_level = grade_function(qn3),
+          ecigarette_segment = ecig_segment_function(eelcigt_r),
+          weighted_pop = wt,
+          age_cigar_first = age_group_cigar_function(qn21),
+          age_tobacco_first = age_group_tobacco_function(qn25),
+          ads_Internet = qn65,
+          ads_news_mag = ads_news_mag_function(qn66),
+          actors_tobacco = actors_tobacco_function(qn68),
+          noone_live_together_used_tobacco = noone_live_together_used_tobacco_function(qn77j),
+          timeframe_quit = timeframe_quit_2012_2015_function(qn53),
+          qn4_agg = hisp_2013_agg(qn4b, qn4c, qn4d, qn4e)) %>%
+   mutate(multiethnic = multi_ethnic_tag(qn5a, qn5b, qn5c, qn5d, qn5e, qn4_agg)) %>%
+   mutate(ethnicity = ethnicity_function(qn5a, qn5b, qn5c, qn5d, qn5e, qn4_agg, multiethnic)) %>%    
+   mutate(cigarette_subsegment = ifelse(qn6==2 & qn7==4 & qn8 == 4 & qn9 == 4, 'Non-Trier: Not at Risk',
+                                        (ifelse(qn6==2 & (qn7 != 4 | qn8 != 4 |qn9 != 4), 'Non-Trier: At Risk', cigarette_segment)
+                                        ))) %>%
+   select(year, weighted_pop, ethnicity, grade_level, cigarette_segment, cigarette_subsegment, ecigarette_segment, age_cigar_first, age_tobacco_first, ads_Internet, ads_news_mag, actors_tobacco, noone_live_together_used_tobacco, timeframe_quit)
+
+
+NYTS_5YEAR_subset <- rbind(NYTS_2011_subset, NYTS_2012_subset, NYTS_2013_subset, NYTS_2014_subset, NYTS_2015_subset)
+
+
+df_5YEAR <- data.frame(NYTS_5YEAR_subset)
+
+
+#Now plot "Before" data cleansing picture for ads_Internet  for comparison
+ggplot(df_5YEAR) + geom_bar(aes(x = ads_Internet, fill = 'red')) + labs(x = 'Frequency') + labs(y = 'Count') + labs(title = 'How often does youth see tobacco ads on Internet?', subtitle = 'Before')
+
+
+
+
+
+#ads_news_mag cleansing
+
+#Convert ads_news_mag categories to ordinal variable
+df_5YEAR$ads_news_mag = ordered(df_5YEAR$ads_news_mag, levels = c('Never', 'Rarely', 'Sometimes', 'Most of the time', 'Always'))
+
+#Examine levels for the ordered variable ads_news_mag
+levels(df_5YEAR$ads_news_mag)
+
+#Find counts for ads_news_mag
+table(df_5YEAR$ads_news_mag)
+
+#Find count for NA in ads_news_mag
+sum(is.na(df_5YEAR$ads_news_mag))
+
+#Plot bar chart to show distribution of ordinal variable and missing value for ads_news_mag
+ggplot(df_5YEAR) + geom_bar(aes(x = ads_news_mag, fill = 'red')) + labs(x = 'Frequency') + labs(y = 'Count') + labs(title = 'How often does youth see tobacco ads on News/Magazine?', subtitle = 'After')
+
+#Plot “Before” bar chart to show distribution of ads_news_mag without data cleaning and processing for comparison
+#Revert ads_news_mag back to no function applied before executing the ggplot code below, refer to how this step is done for ads_Internet previously.
+
+ggplot(df_5YEAR) + geom_bar(aes(x = ads_news_mag, fill = 'red')) + labs(x = 'Frequency') + labs(y = 'Count') + labs(title = 'How often does youth see tobacco ads on News/Magazine?', subtitle = 'Before')
+
+
+#actors_tobacco cleansing
+
+#Convert actors_tobacco categories to ordinal variable
+df_5YEAR$actors_tobacco = ordered(df_5YEAR$actors_tobacco, levels = c('Never', 'Rarely', 'Sometimes', 'Most of the time', 'Always'))
+
+#Examine levels for the ordered variable actors_tobacco
+levels(df_5YEAR$actors_tobacco)
+
+#Find counts for actors_tobacco
+table(df_5YEAR$actors_tobacco)
+
+#Find count for NA in actors_tobacco
+sum(is.na(df_5YEAR$actors_tobacco))
+
+#Plot bar chart to show distribution of ordinal variable and missing value for actors_tobacco
+ggplot(df_5YEAR) + geom_bar(aes(x = actors_tobacco, fill = 'red')) + labs(x = 'Frequency') + labs(y = 'Count') + labs(title = 'How often does youth see actors use tobacco products on TV/movies?', subtitle = 'After')
+
+#Plot “Before” bar chart to show distribution of actors_tobacco without data cleaning and processing for comparison
+#Revert actors_tobacco back to no function applied before executing the ggplot code below, refer to how this step is done for ads_Internet previously.
+
+ggplot(df_5YEAR) + geom_bar(aes(x = actors_tobacco, fill = 'red')) + labs(x = 'Frequency') + labs(y = 'Count') + labs(title = 'How often does youth see actors use tobacco products on TV/movies?', subtitle = 'Before')
+
+
+
+#noone_live_together_used_tobacco cleansing
+
+
+#Find counts for noone_live_together_used_tobacco
+table(df_5YEAR$noone_live_together_used_tobacco)
+
+#Find count for NA in noone_live_together_used_tobacco
+sum(is.na(df_5YEAR$noone_live_together_used_tobacco))
+
+#Plot bar chart to show distribution of boolean value TRUE and missing value for noone_live_together_used_tobacco
+ggplot(df_5YEAR) + geom_bar(aes(x = noone_live_together_used_tobacco, fill = 'red')) + labs(x = 'Frequency') + labs(y = 'Count') + labs(title = 'Does no one live with you use tobacco products?', subtitle = 'After')
+
+#Plot “Before” bar chart to show distribution of noone_live_together_used_tobacco without data cleaning and processing for comparison
+#Revert noone_live_together_used_tobacco back to no function applied before executing the ggplot code below, refer to how this step is done for ads_Internet previously.
+
+ggplot(df_5YEAR) + geom_bar(aes(x = noone_live_together_used_tobacco, fill = 'red')) + labs(x = 'Frequency') + labs(y = 'Count') + labs(title = 'Does no one live with you use tobacco products?', subtitle = 'Before')
+
+
+
+
+#timeframe_quit cleansing
+
+
+#Convert timeframe_quit categories to ordinal variable
+df_5YEAR$timeframe_quit = ordered(df_5YEAR$timeframe_quit, levels = c('Never used tobacco', 'Within 30 days', 'Within 6 months', 'Within > 6 months', 'Not thinking about quitting'))
+
+#Examine levels for the ordered variable timeframe_quit
+levels(df_5YEAR$timeframe_quit)
+
+#Find counts for timeframe_quit
+table(df_5YEAR$timeframe_quit)
+
+#Find count for NA in timeframe_quit
+sum(is.na(df_5YEAR$timeframe_quit))
+
+#Plot bar chart to show distribution of ordinal variable and missing value for timeframe_quit
+ggplot(df_5YEAR) + geom_bar(aes(x = timeframe_quit, fill = 'red')) + labs(x = 'Frequency') + labs(y = 'Count') + labs(title = 'How soon is youth seriously thinking about quitting all tobacco products?', subtitle = 'After')
+
+#Plot “Before” bar chart to show distribution of timeframe_quit without data cleaning and processing for comparison
+#Revert timeframe_quit back to no function applied before executing the ggplot code below, refer to how this step is done for ads_Internet previously.
+
+ggplot(df_5YEAR) + geom_bar(aes(x = timeframe_quit, fill = 'red')) + labs(x = 'Frequency') + labs(y = 'Count') + labs(title = 'How soon is youth seriously thinking about quitting all tobacco products?', subtitle = 'Before')
+
+
+
