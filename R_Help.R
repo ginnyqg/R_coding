@@ -1,6 +1,13 @@
 #import csv Data
 dataset_you_name_it = read.csv(file = “csv file path”)
 
+#faster read of large file
+library(data.table)
+dataset_you_name_it <- fread('csv file path')
+
+#additional features of fread
+https://github.com/Rdatatable/data.table/wiki/Convenience-features-of-fread
+
 #import csv file, first row is header
 #read.table() returns data.frame object
 dataset_you_name_it = read.table('file name.format', sep = ',')
