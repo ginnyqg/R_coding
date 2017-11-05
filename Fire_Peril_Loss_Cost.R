@@ -15,11 +15,11 @@ head(fire_train)
 summary(fire_train)
 
 
-
 #EDA target, exclude target is 0
-hist(fire_train$target[! fire_train$target == 0])
+hist(fire_train$target[! fire_train$target == 0], labels = TRUE)
 
-
+#EDA cat varialbe
+barplot(table(fire_train $var1))
 
 
 
