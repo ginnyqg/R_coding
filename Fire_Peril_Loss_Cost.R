@@ -15,12 +15,18 @@ head(fire_train)
 summary(fire_train)
 
 
-#EDA target, exclude target is 0
+#EDA target, a continuous variable, exclude target is 0
 hist(fire_train$target[! fire_train$target == 0], labels = TRUE)
 
-#EDA cat varialbe
+#EDA categorical varialbe
 barplot(table(fire_train $var1))
 
+
+#count number of NAs in continuous column
+sum(is.na(fire_train$var12))
+
+#impute NA to 0
+fire_train$var12[is.na(fire_train$var12)] = 0
 
 
 
