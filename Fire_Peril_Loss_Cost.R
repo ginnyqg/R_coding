@@ -36,3 +36,26 @@ df_raw <- data.frame(fire_train)
 df_train <- df_raw[, c(2, 12:19)]
 
 
+library(fscaret)
+
+
+set.seed(1234)
+
+#partition dataframe to 2 parts
+splitIndex <- createDataPartition(df_train$target, p = .75, list = FALSE, times = 1)
+
+trainDF <- df_train[splitIndex, ]
+
+testDF <- df_train[-splitIndex, ]
+
+
+#feature selection model selection
+fsModels <- c("glm", "gbm", "treebag", "ridge", "lasso")
+
+
+#feature selection process
+myFS <- fscaret(trainDF, testDF, myTimeLimit = 40, preprocessData = TRUE,
+               Used.funcRegPred = 'gbm', with.labels = TRUE,
+               supress.output = FALSE, no.cores = 2)
+
+
