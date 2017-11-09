@@ -36,6 +36,8 @@ df_raw <- data.frame(fire_train)
 df_train <- df_raw[, c(2, 12:19)]
 
 
+
+# http://amunategui.github.io/fscaret-Walkthrough/
 library(fscaret)
 
 
