@@ -52,6 +52,9 @@ install.packages(“package_name”)
 #check R version
 R.Version()
 
+#clear console
+Ctrl+L
+
 #make individual variables available as vectors
 attach(dataset_you_name_it)
 
