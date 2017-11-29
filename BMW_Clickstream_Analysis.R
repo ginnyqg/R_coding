@@ -5,6 +5,21 @@ Oct_2_2017 <- fread('Oct2 sample.csv')
 
 View(Oct_2_2017)
 
+dim(Oct_2_2017)
+#[1] 21258   503
+
+#Exclude all rows where exclude_hit > 0
+nrow(Oct_2_2017[Oct_2_2017$exclude_hit > 0, ])
+#[1] 117
+
+#Exclude all rows where hit_source = 5,7,8,9
+nrow(Oct_2_2017[Oct_2_2017$hit_source %in% c(5,7,8,9), ])
+#[1] 1
+
+
+
+
+
 
 
 
