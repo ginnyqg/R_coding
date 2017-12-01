@@ -1,6 +1,6 @@
 library(data.table)
 
-Oct_2_2017 <- fread('Oct2 sample.csv')
+Oct_2_2017 <- fread('/Users/qinqingao/Desktop/Columbia/Contest/Data/Oct2 sample.csv')
 #Read 21258 rows and 503 (of 503) columns from 0.117 GB file in 00:00:03
 
 View(Oct_2_2017)
@@ -8,35 +8,101 @@ View(Oct_2_2017)
 dim(Oct_2_2017)
 #[1] 21258   503
 
+
 #Data selection
 df <- data.frame(Oct_2_2017)
 library(dplyr)
 
-#Select post_visid_type value of 0,1,2,3,4,5
+
+#####################
+#  post_visid_type  #
+#####################
+
+#Take a look what's in there before cleaning
+unique(df$post_visid_type)
+
+#Select post_visid_type value of 0,1,2,3,4,5 per Reference 1
 selected_data <- filter(df, df$post_visid_type %in% c(0,1,2,3,4,5))
 
+#Take a look what's in there after cleaning
+unique(selected_data$post_visid_type)
+
 dim(selected_data)
 #[1] 11823   503
 
 df <- selected_data
-
 dim(df)
 #[1] 11823   503
 
+
+#####################
+#    exclude_hit    #
+#####################
+
+#Take a look what's in there before cleaning
+unique(df$exclude_hit)
+
+#Select exclude_hit value of 0 per Reference 2
 selected_data <- filter(df, df$exclude_hit == 0)
 
+#Take a look what's in there after cleaning
+unique(selected_data$exclude_hit)
+
 dim(selected_data)
 #[1] 11761   503
 
 df <- selected_data
-
 dim(df)
 #[1] 11761   503
 
+
+#####################
+#     hit_source    #
+#####################
+
+#Take a look what's in there before cleaning
+unique(df$hit_source)
+#[1] "1"
+
+#Select hit_source value NOT of 5,7,8,9 per Reference 2
 selected_data <- filter(df, !(df$hit_source %in% c(5,7,8,9)))
+
+#Take a look what's in there after cleaning
+unique(selected_data$hit_source)
+#[1] "1"
 
 dim(selected_data)
 #[1] 11761   503
+
+df <- selected_data
+dim(df)
+#[1] 11761   503
+
+
+#####################
+#   daily_visitor   #
+#####################
+
+#Take a look what's in there before cleaning
+unique(df$daily_visitor)
+#[1] "0" "1"
+
+#Select daily_visitor value of 0,1 per Reference 1
+selected_data <- filter(df, df$daily_visitor %in% c(0,1))
+
+#Take a look what's in there after cleaning
+unique(selected_data$daily_visitor)
+#[1] "0" "1"
+
+dim(selected_data)
+#[1] 11761   503
+
+df <- selected_data
+dim(df)
+#[1] 11761   503
+
+
+
 
 
 
@@ -47,4 +113,17 @@ names(Oct_2_2017_selected)[2] <- "V2"
 #select numbers in column 1, disregard problem values
 selected_data <- df[grep("[[:digit:]]", df[1]), ]
 
+
+
+
+#####################
+#     Reference     #
+#####################
+
+#Clickstream data column reference (Reference 1):
+https://marketing.adobe.com/resources/help/en_US/sc/clickstream/datafeeds_reference.html
+
+
+#Identifying Visitors (Reference 2) :
+https://marketing.adobe.com/resources/help/en_US/sc/clickstream/datafeeds_visid.html
 
