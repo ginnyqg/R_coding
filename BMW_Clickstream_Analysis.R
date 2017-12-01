@@ -102,8 +102,55 @@ dim(df)
 #[1] 11761   503
 
 
+#####################
+#   truncated_hit   #
+#####################
+
+#Take a look what's in there before cleaning
+unique(df$truncated_hit)
+#[1] "N"
+
+#Select truncated_hit value of Y,N per Reference 1
+selected_data <- filter(df, df$truncated_hit %in% c('Y','N'))
+
+#Take a look what's in there after cleaning
+unique(selected_data$truncated_hit)
+#[1] "N"
+
+dim(selected_data)
+#[1] 11761   503
+
+df <- selected_data
+dim(df)
+#[1] 11761   503
 
 
+#####################
+# va_instance_event #
+#####################
+
+#Take a look what's in there before cleaning
+unique(df$va_instance_event)
+#[1] "0" "1" "" 
+
+#Select va_instance_event value of 0,1 per Reference 1
+selected_data <- filter(df, df$va_instance_event %in% c(0,1))
+
+#Take a look what's in there after cleaning
+unique(selected_data$va_instance_event)
+#[1] "0" "1"
+
+dim(selected_data)
+#[1] 11760   503
+
+df <- selected_data
+dim(df)
+#[1] 11760   503
+
+
+
+
+######################
 
 
 Oct_2_2017_selected <- fread('/Users/qinqingao/Desktop/Columbia/Contest/Data/selected_data_Oct_2_2017.csv')
