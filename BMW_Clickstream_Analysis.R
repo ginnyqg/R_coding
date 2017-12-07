@@ -148,6 +148,36 @@ dim(df)
 #[1] 11760   503
 
 
+######################
+
+#import latest version
+library(data.table)
+Oct_2_2017 <- fread('/Users/qinqingao/Desktop/Columbia/Contest/Data/selected_data_Oct_2_2017_v4.csv')
+
+#install.packages('bit64')
+
+View(Oct_2_2017)
+
+dim(Oct_2_2017)
+#[1] 11880   100
+
+df <- data.frame(Oct_2_2017)
+
+#concatenate post_visid_high and post_visid_low to unique_visitor_id
+df$unique_visitor_id <- paste(df$post_visid_high, "_", df$post_visid_low)
+
+dim(df)
+#[1] 11880   101
+
+#check number of missing value in V1
+sum(is.na(df$V1))
+#[1] 120
+
+#get rid of blank entries in V1
+df <- df[!(is.na(df$V1) | df$V1 == ""), ]
+
+dim(df)
+#[1] 11760   101
 
 
 ######################
