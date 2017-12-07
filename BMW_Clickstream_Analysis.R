@@ -148,7 +148,7 @@ dim(df)
 #[1] 11760   503
 
 
-######################
+##############################################################################################################
 
 #import latest version
 library(data.table)
@@ -169,6 +169,11 @@ df$unique_visitor_id <- paste(df$post_visid_high, "_", df$post_visid_low)
 dim(df)
 #[1] 11880   101
 
+
+###########################
+#   Get rid of NA in V1   #
+###########################
+
 #check number of missing value in V1
 sum(is.na(df$V1))
 #[1] 120
@@ -178,6 +183,24 @@ df <- df[!(is.na(df$V1) | df$V1 == ""), ]
 
 dim(df)
 #[1] 11760   101
+
+###########################################
+#   Get rid of NA in click_context_type   #
+###########################################
+
+#check number of missing value in click_context_type
+sum(is.na(df$click_context_type))
+#[1] 38
+
+#get rid of NAs in click_context_type
+df <- df[!is.na(df$click_context_type), ]
+
+dim(df)
+#[1] 11722   100
+
+
+
+write.csv(df, file = "/Users/qinqingao/Desktop/Columbia/Contest/Data/selected_data_Oct_2_2017_v5.csv")
 
 
 ######################
