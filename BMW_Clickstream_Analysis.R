@@ -430,6 +430,47 @@ unique(df$period_wt)
 #[1] 1.0 1.5
 
 
+#create NewVisitorId_wt
+df$NewVisitorId_wt <- ifelse(df$visid_new == 'N', 1.75, 1)
+
+unique(df$NewVisitorId_wt)
+#[1] 1.00 1.75
+
+
+
+
+#cleanse and create RefType_wt
+
+
+#before imputing NA to 0
+unique(df$ref_type)
+#[1]  6  1  3  2  9  8 NA
+
+
+table(df$ref_type)
+
+#   1    2    3    6    8    9 
+#3755  361 1366 6200   11   27 
+
+
+df$ref_type[is.na(df$ref_type)] = 0
+
+
+
+
+#after imputing NA to 0
+table(df$ref_type)
+
+#   0    1    2    3    6    8    9 
+#   2 3755  361 1366 6200   11   27 
+
+
+#create RefType_wt
+df$RefType_wt <- ifelse(df$ref_type == 6, 3, 1)
+
+
+unique(df$RefType_wt)
+#[1] 3 1
 
 
 
