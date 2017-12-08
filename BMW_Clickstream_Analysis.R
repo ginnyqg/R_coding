@@ -237,11 +237,19 @@ count(df$post_campaign_indicator)
 #2 1 2761
 
 
-######################################
-#   create post_campaign_indicator   #
-######################################
+###################################################
+#   create post_pagename_quote_dealer_indicator   #
+###################################################
 
+df$post_pagename_quote_dealer_indicator <- ifelse (grepl("quote", df$post_pagename, ignore.case = TRUE) | grepl("dealer", df$post_pagename, ignore.case = TRUE), 1, 0)
 
+#df$post_pagename_quote_dealer_indicator <- ifelse (df$post_pagename %like% "Quote" | grepl("dealer", df$post_pagename, ignore.case = TRUE), 1, 0)
+
+length(df$post_pagename_quote_dealer_indicator)
+#[1] 11722
+
+dim(df)
+#[1] 11722   101
 
 
 
