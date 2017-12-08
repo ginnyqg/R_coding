@@ -340,6 +340,95 @@ selected_data <- df[grep("[[:digit:]]", df[1]), ]
 
 
 
+#behavior scoring
+
+#time period
+
+sum(is.na(df$hourly_visitor))
+#[1] 0
+
+sum(is.na(df$daily_visitor))
+#[1] 0
+
+sum(is.na(df$weekly_visitor))
+#[1] 59
+
+sum(is.na(df$monthly_visitor))
+#[1] 0
+
+sum(is.na(df$quarterly_visitor))
+#[1] 2
+
+sum(is.na(df$yearly_visitor))
+#[1] 59
+
+
+##### weekly_visitor #####
+
+#before imputing NA weekly_visitor to 0
+table(df$weekly_visitor)
+
+#   0    1 
+#8997 2666 
+
+length(df$weekly_visitor)
+#[1] 11722
+
+
+#impute NA week_visitor to 0
+df$weekly_visitor[is.na(df$weekly_visitor)] = 0
+
+
+#after imputing NA weekly_visitor to 0
+table(df$weekly_visitor)
+
+#   0    1 
+#9056 2666 
+
+length(df$weekly_visitor)
+#[1] 11722
+
+
+
+##### quarterly_visitor #####
+
+#before imputing NA quarterly_visitor to 0
+table(df$quarterly_visitor)
+
+#   0    1 
+#9054 2666 
+
+df$quarterly_visitor[is.na(df$quarterly_visitor)] = 0
+
+#after imputing NA quarterly_visitor to 0
+table(df$quarterly_visitor)
+
+#   0    1 
+#9056 2666
+
+
+
+##### yearly_visitor #####
+
+
+#before imputing NA yearly_visitor to 0
+table(df$yearly_visitor)
+
+#   0    1 
+#9952 1711 
+
+df$yearly_visitor[is.na(df$yearly_visitor)] = 0
+
+#after imputing NA yearly_visitor to 0
+table(df$yearly_visitor)
+
+#    0     1 
+#10011  1711 
+
+
+
+
+
 
 #####################
 #     Reference     #
