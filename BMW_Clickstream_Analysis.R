@@ -253,6 +253,19 @@ dim(df)
 
 
 
+####################################################
+#   create post_pagename_lease_finance_indicator   #
+####################################################
+
+df$post_pagename_lease_finance_indicator <- ifelse (grepl("leas", df$post_pagename, ignore.case = TRUE) | grepl("financ", df$post_pagename, ignore.case = TRUE), 1, 0)
+
+length(df$post_pagename_lease_finance_indicator)
+#[1] 11722
+
+dim(df)
+#[1] 11722   102
+
+
 ##############################################################################################################
 
 
