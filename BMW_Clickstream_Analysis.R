@@ -323,24 +323,21 @@ dim(df)
 #Scoring
 #************************************************************************************************************************#
 
-#content scoring
+
+
+########################
+#   content scoring    #
+########################
+
 
 df$content_score <- 1 * df$post_campaign_indicator + 2 * df$post_pagename_quote_dealer_indicator + 3 *df$post_pagename_lease_finance_indicator + 6 * df$post_pagename_OrderNow_indicator + 10 * df$post_page_event_var2_LeadInitiated_indicator + 15 * df$post_evar2_indicator + 20 * df$post_page_event_var2_LeadSubmission_indicator
 
 
-##############################################################################################################
 
+#########################
+#   behavior scoring    #
+#########################
 
-Oct_2_2017_selected <- fread('/Users/qinqingao/Desktop/Columbia/Contest/Data/selected_data_Oct_2_2017.csv')
-
-names(Oct_2_2017_selected)[2] <- "V2"
-
-#select numbers in column 1, disregard problem values
-selected_data <- df[grep("[[:digit:]]", df[1]), ]
-
-
-
-#behavior scoring
 
 #time period
 
@@ -426,7 +423,25 @@ table(df$yearly_visitor)
 #10011  1711 
 
 
+#create period_wt
+df$period_wt <- ifelse(df$hourly_visitor == 1 | df$daily_visitor == 1, 1.5, ifelse(df$weekly_visitor == 1 | df$monthly_visitor == 1, 1.25, 1))
 
+unique(df$period_wt)
+#[1] 1.0 1.5
+
+
+
+
+
+##############################################################################################################
+
+
+Oct_2_2017_selected <- fread('/Users/qinqingao/Desktop/Columbia/Contest/Data/selected_data_Oct_2_2017.csv')
+
+names(Oct_2_2017_selected)[2] <- "V2"
+
+#select numbers in column 1, disregard problem values
+selected_data <- df[grep("[[:digit:]]", df[1]), ]
 
 
 
