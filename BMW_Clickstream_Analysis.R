@@ -203,7 +203,53 @@ dim(df)
 write.csv(df, file = "/Users/qinqingao/Desktop/Columbia/Contest/Data/selected_data_Oct_2_2017_v5.csv")
 
 
-######################
+##############################################################################################################
+
+#make indicators
+
+######################################
+#   create post_campaign_indicator   #
+######################################
+
+df$post_campaign_indicator <- ifelse (is.na(df$post_campaign) | df$post_campaign == '', 0, 1)
+
+
+#count value in post_campaign_indicator
+length(df$post_campaign_indicator)
+#[1] 11722
+
+#count distinct value in post_campaign_indicator
+#method 1
+table(df$post_campaign_indicator)
+
+#   0    1 
+#8961 2761 
+
+#or
+
+#method 2
+install.packages('plyr')
+library('plyr')
+
+count(df$post_campaign_indicator)
+#  x freq
+#1 0 8961
+#2 1 2761
+
+
+######################################
+#   create post_campaign_indicator   #
+######################################
+
+
+
+
+
+##############################################################################################################
+
+
+
+
 
 
 Oct_2_2017_selected <- fread('/Users/qinqingao/Desktop/Columbia/Contest/Data/selected_data_Oct_2_2017.csv')
