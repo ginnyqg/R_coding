@@ -280,11 +280,22 @@ dim(df)
 #[1] 11722   103
 
 
+
+#############################################
+#   create post_page_event_var2_indicator   #
+#############################################
+
+df$post_page_event_var2_LeadInitiated_indicator <- ifelse (grepl("lead-initiated", df$post_page_event_var2, ignore.case = TRUE), 1, 0)
+
+length(df$post_page_event_var2_LeadInitiated_indicator)
+#[1] 11722
+
+dim(df)
+#[1] 11722   104
+
+
+
 ##############################################################################################################
-
-
-
-
 
 
 Oct_2_2017_selected <- fread('/Users/qinqingao/Desktop/Columbia/Contest/Data/selected_data_Oct_2_2017.csv')
