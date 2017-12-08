@@ -266,6 +266,20 @@ dim(df)
 #[1] 11722   102
 
 
+
+###############################################
+#   create post_pagename_OrderNow_indicator   #
+###############################################
+
+df$post_pagename_OrderNow_indicator <- ifelse (grepl("order", df$post_pagename, ignore.case = TRUE), 1, 0)
+
+length(df$post_pagename_OrderNow_indicator)
+#[1] 11722
+
+dim(df)
+#[1] 11722   103
+
+
 ##############################################################################################################
 
 
