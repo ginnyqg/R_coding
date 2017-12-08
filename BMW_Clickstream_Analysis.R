@@ -203,9 +203,9 @@ dim(df)
 write.csv(df, file = "/Users/qinqingao/Desktop/Columbia/Contest/Data/selected_data_Oct_2_2017_v5.csv")
 
 
-##############################################################################################################
-
+#************************************************************************************************************************#
 #make indicators
+#************************************************************************************************************************#
 
 ######################################
 #   create post_campaign_indicator   #
@@ -317,6 +317,15 @@ length(df$post_evar2_indicator)
 
 dim(df)
 #[1] 11722   106
+
+
+#************************************************************************************************************************#
+#Scoring
+#************************************************************************************************************************#
+
+#content scoring
+
+df$content_score <- 1 * df$post_campaign_indicator + 2 * df$post_pagename_quote_dealer_indicator + 3 *df$post_pagename_lease_finance_indicator + 6 * df$post_pagename_OrderNow_indicator + 10 * df$post_page_event_var2_LeadInitiated_indicator + 15 * df$post_evar2_indicator + 20 * df$post_page_event_var2_LeadSubmission_indicator
 
 
 ##############################################################################################################
