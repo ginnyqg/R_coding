@@ -306,6 +306,19 @@ dim(df)
 
 
 
+###################################
+#   create post_evar2_indicator   #
+###################################
+
+df$post_evar2_indicator <- ifelse (grepl("^B", df$post_evar2, ignore.case = TRUE) | grepl("dealercontact", df$post_evar2, ignore.case = TRUE) | grepl("LTD", df$post_evar2, ignore.case = TRUE), 1, 0)
+
+length(df$post_evar2_indicator)
+#[1] 11722
+
+dim(df)
+#[1] 11722   106
+
+
 ##############################################################################################################
 
 
