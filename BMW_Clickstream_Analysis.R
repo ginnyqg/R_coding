@@ -285,6 +285,7 @@ dim(df)
 #   create post_page_event_var2_indicator   #
 #############################################
 
+#Lead Initiated Indicator
 df$post_page_event_var2_LeadInitiated_indicator <- ifelse (grepl("lead-initiated", df$post_page_event_var2, ignore.case = TRUE), 1, 0)
 
 length(df$post_page_event_var2_LeadInitiated_indicator)
@@ -292,6 +293,16 @@ length(df$post_page_event_var2_LeadInitiated_indicator)
 
 dim(df)
 #[1] 11722   104
+
+
+#Lead Submission Indicator
+df$post_page_event_var2_LeadSubmission_indicator <- ifelse (grepl("lead-submission", df$post_page_event_var2, ignore.case = TRUE), 1, 0)
+
+length(df$post_page_event_var2_LeadSubmission_indicator)
+#[1] 11722
+
+dim(df)
+#[1] 11722   105
 
 
 
