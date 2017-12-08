@@ -235,8 +235,8 @@ data$height[which(data$set == 'Female' & is.na(data$height))] = female.height.no
 #count of missing value in a column
 sum(is.na(df$col))
 
-
-           
+#drop columnA, notice no quotation mark
+df <- subset(df, select = -c(columnA))
 
 
 
