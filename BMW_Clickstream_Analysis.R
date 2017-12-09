@@ -474,6 +474,21 @@ unique(df$RefType_wt)
 
 
 
+#web engagement to leads generation algorithm
+df$content_behavior_score <- (df$period_wt + df$NewVisitorId_wt + df$RefType_wt) * df$content_score
+
+
+########################################################
+#  normalizeing the score, processing in the database  #
+########################################################
+
+
+#connect to the database to aggregate visitor id (post_evar47) by visit_num, calculate normalized engagement score to compare amongst visitors
+#SELECT post_evar47 as visitor_id, (content_behavior_score/sum(visit_num)) * 100 as normalized_score FROM BMW_CLICKSTREAM
+#GROUP BY post_evar47
+
+
+
 ##############################################################################################################
 
 
