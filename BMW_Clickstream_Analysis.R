@@ -1,3 +1,10 @@
+#*****************************************************************************************#
+
+#Cleanse problem records
+
+#*****************************************************************************************#
+
+#Load the data
 library(data.table)
 
 Oct_2_2017 <- fread('/Users/qinqingao/Desktop/Columbia/Contest/Data/Oct2 sample.csv')
@@ -12,7 +19,6 @@ dim(Oct_2_2017)
 #Data selection
 df <- data.frame(Oct_2_2017)
 library(dplyr)
-
 
 #####################
 #  post_visid_type  #
@@ -148,28 +154,6 @@ dim(df)
 #[1] 11760   503
 
 
-##############################################################################################################
-
-#import latest version
-library(data.table)
-Oct_2_2017 <- fread('/Users/qinqingao/Desktop/Columbia/Contest/Data/selected_data_Oct_2_2017_v4.csv')
-
-#install.packages('bit64')
-
-View(Oct_2_2017)
-
-dim(Oct_2_2017)
-#[1] 11880   100
-
-df <- data.frame(Oct_2_2017)
-
-#concatenate post_visid_high and post_visid_low to unique_visitor_id
-df$unique_visitor_id <- paste(df$post_visid_high, "_", df$post_visid_low)
-
-dim(df)
-#[1] 11880   101
-
-
 ###########################
 #   Get rid of NA in V1   #
 ###########################
@@ -197,10 +181,6 @@ df <- df[!is.na(df$click_context_type), ]
 
 dim(df)
 #[1] 11722   100
-
-
-
-write.csv(df, file = "/Users/qinqingao/Desktop/Columbia/Contest/Data/selected_data_Oct_2_2017_v5.csv")
 
 
 #************************************************************************************************************************#
@@ -319,19 +299,24 @@ dim(df)
 #[1] 11722   106
 
 
+#*****************************************************************************************#
+
+#Algorithm
+
+#*****************************************************************************************#
+
+
 #************************************************************************************************************************#
 #Scoring
 #************************************************************************************************************************#
-
 
 
 ########################
 #   content scoring    #
 ########################
 
-
+#generate content score, weight from content consumption point system
 df$content_score <- 1 * df$post_campaign_indicator + 2 * df$post_pagename_quote_dealer_indicator + 3 *df$post_pagename_lease_finance_indicator + 6 * df$post_pagename_OrderNow_indicator + 10 * df$post_page_event_var2_LeadInitiated_indicator + 15 * df$post_evar2_indicator + 20 * df$post_page_event_var2_LeadSubmission_indicator
-
 
 
 #########################
@@ -339,7 +324,7 @@ df$content_score <- 1 * df$post_campaign_indicator + 2 * df$post_pagename_quote_
 #########################
 
 
-#time period
+#time period missing value search
 
 sum(is.na(df$hourly_visitor))
 #[1] 0
@@ -423,14 +408,14 @@ table(df$yearly_visitor)
 #10011  1711 
 
 
-#create period_wt
+#create period_wt, weight from visitor behavior point system
 df$period_wt <- ifelse(df$hourly_visitor == 1 | df$daily_visitor == 1, 1.5, ifelse(df$weekly_visitor == 1 | df$monthly_visitor == 1, 1.25, 1))
 
 unique(df$period_wt)
 #[1] 1.0 1.5
 
 
-#create NewVisitorId_wt
+#create NewVisitorId_wt, weight from visitor behavior point system
 df$NewVisitorId_wt <- ifelse(df$visid_new == 'N', 1.75, 1)
 
 unique(df$NewVisitorId_wt)
@@ -438,9 +423,7 @@ unique(df$NewVisitorId_wt)
 
 
 
-
 #cleanse and create RefType_wt
-
 
 #before imputing NA to 0
 unique(df$ref_type)
@@ -489,18 +472,6 @@ df$content_behavior_score <- (df$period_wt + df$NewVisitorId_wt + df$RefType_wt)
 
 
 
-##############################################################################################################
-
-
-Oct_2_2017_selected <- fread('/Users/qinqingao/Desktop/Columbia/Contest/Data/selected_data_Oct_2_2017.csv')
-
-names(Oct_2_2017_selected)[2] <- "V2"
-
-#select numbers in column 1, disregard problem values
-selected_data <- df[grep("[[:digit:]]", df[1]), ]
-
-
-
 #####################
 #     Reference     #
 #####################
@@ -511,4 +482,43 @@ https://marketing.adobe.com/resources/help/en_US/sc/clickstream/datafeeds_refere
 
 #Identifying Visitors (Reference 2) :
 https://marketing.adobe.com/resources/help/en_US/sc/clickstream/datafeeds_visid.html
+
+
+
+##############################################################################################################
+#Extra
+
+Oct_2_2017_selected <- fread('/Users/qinqingao/Desktop/Columbia/Contest/Data/selected_data_Oct_2_2017.csv')
+
+names(Oct_2_2017_selected)[2] <- "V2"
+
+#select numbers in column 1, disregard problem values
+selected_data <- df[grep("[[:digit:]]", df[1]), ]
+
+
+
+
+#import latest version
+library(data.table)
+Oct_2_2017 <- fread('/Users/qinqingao/Desktop/Columbia/Contest/Data/selected_data_Oct_2_2017_v4.csv')
+
+#install.packages('bit64')
+
+View(Oct_2_2017)
+
+dim(Oct_2_2017)
+#[1] 11880   100
+
+df <- data.frame(Oct_2_2017)
+
+#concatenate post_visid_high and post_visid_low to unique_visitor_id
+df$unique_visitor_id <- paste(df$post_visid_high, "_", df$post_visid_low)
+
+dim(df)
+#[1] 11880   101
+
+write.csv(df, file = "/Users/qinqingao/Desktop/Columbia/Contest/Data/selected_data_Oct_2_2017_v5.csv")
+
+##############################################################################################################
+
 
