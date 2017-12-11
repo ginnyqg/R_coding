@@ -650,3 +650,22 @@ ggplot(df_5YEAR) + geom_bar(aes(x = timeframe_quit, fill = 'red')) + labs(x = 'F
 
 
 
+
+*******
+
+unique(df_5YEAR$timeframe_quit)
+
+#[1] "Not think about quitting" "Never used tobacco"      
+#[3] "Within 30 days"           NA                        
+#[5] "Within > 6 months"        "Within 6 months" 
+
+
+df_5YEAR$quit_flag <- ifelse(grepl("Within", df_5YEAR$timeframe_quit, ignore.case = TRUE), 1, ifelse(grepl("Not", df_5YEAR$timeframe_quit, ignore.case = TRUE), 0, 2))
+
+unique(df_5YEAR$quit_flag)
+#[1] 0 2 1
+
+
+
+
+
