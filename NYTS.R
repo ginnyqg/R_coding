@@ -653,19 +653,115 @@ ggplot(df_5YEAR) + geom_bar(aes(x = timeframe_quit, fill = 'red')) + labs(x = 'F
 
 *******
 
-unique(df_5YEAR$timeframe_quit)
+#Deliverable 2
 
+df_5YEAR <- read.csv("df_5YEAR.csv")
+
+unique(df_5YEAR$timeframe_quit)
 #[1] "Not think about quitting" "Never used tobacco"      
 #[3] "Within 30 days"           NA                        
-#[5] "Within > 6 months"        "Within 6 months" 
+#[5] "Within > 6 months"        "Within 6 months"    
 
-
+#create a quit_flag to show if a teen plans to quit smoking at all
 df_5YEAR$quit_flag <- ifelse(grepl("Within", df_5YEAR$timeframe_quit, ignore.case = TRUE), 1, ifelse(grepl("Not", df_5YEAR$timeframe_quit, ignore.case = TRUE), 0, 2))
 
 unique(df_5YEAR$quit_flag)
 #[1] 0 2 1
 
+#before converting to ordinal variable
+levels(df_5YEAR$timeframe_quit)
+#[1] "Never used tobacco"       "Not think about quitting"
+#[3] "Within > 6 months"        "Within 30 days"          
+#[5] "Within 6 months" 
 
+#Convert timeframe_quit categories to ordinal variable
+df_5YEAR$timeframe_quit = ordered(df_5YEAR$timeframe_quit, levels = c('Never used tobacco', 'Within 30 days', 'Within 6 months', 'Within > 6 months', 'Not thinking about quitting'))
+
+#after converting to ordinal variable
+levels(df_5YEAR$timeframe_quit)
+#[1] "Never used tobacco"          "Within 30 days"             
+#[3] "Within 6 months"             "Within > 6 months"          
+#[5] "Not thinking about quitting"
+
+unique(df_5YEAR$timeframe_quit)
+#[1] Not think about quitting Never used tobacco      
+#[3] Within 30 days           <NA>                    
+#[5] Within > 6 months        Within 6 months         
+#5 Levels: Never used tobacco ... Within 6 months
+
+
+#change timeframe_quit to factor
+#timeframe_quit_f <- factor(df_5YEAR$timeframe_quit)
+
+library(ggplot2)
+
+
+#count of timeframe_quit by year
+ggplot(df_5YEAR, aes(x = timeframe_quit)) + geom_bar(stat="count", fill = '#56B4E9', color = '#56B4E9', alpha = 0.6) + facet_grid(year~.) + geom_text(stat = 'count', aes(label=..count..), vjust = 0.2) + labs(x = 'Timeframe quit', y = 'Count') + ggtitle('Count of timeframes thinking of quitting smoking by year') + theme(plot.title = element_text(hjust = 0.5), panel.background = element_rect(fill = NA, color = "black"))
+
+
+#plot timeframe_quit_f to show counts
+#qplot(timeframe_quit_f, xlab = 'Timeframe of quitting', ylab = 'Count') + geom_text(stat = 'count', aes(label=..count..), vjust = -1)
+
+
+#create timeframe_quit_chart
+timeframe_quit_chart <- ggplot() + geom_bar(aes(y = timeframe_quit, x = year, fill = factor(timeframe_quit)), data = df_5YEAR, stat="identity") + labs(x = 'Year', y = 'Count') + ggtitle('Composition of timeframes teens think of quitting smoking')
+
+#plot chart
+timeframe_quit_chart
+
+
+# select data with value 0 or 1 in quit_flag for predictive modeling purpose
+# predict whether a teen will think about quitting and if so, in what timeframe
+# quit_flag == 0 means 'Not think about quitting'
+# quit_flag == 1 means thinkin about quitting, and within a certain period
+# quit_flag == 2 means 'Never used tobacco' or NA
+
+library(dplyr)
+selected_data <- filter(df, df$quit_flag %in% c(0,1))
+
+#remove first column: auto-generated counts without column name, since new extract will have that again
+selected_data <- selected_data[, -1]
+
+#save as a separate file named 'df_5YEAR_selected.csv'
+write.csv(selected_data, file = '/Users/qinqingao/Desktop/Columbia/Courses/Fall 2017/APAN 5200_Frameworks and Methods/Project/Deliverable 2/df_5YEAR_selected.csv')
+
+
+library(BCA)
+
+#custermize rpart control
+library(rpart)
+rpartContr = rpart.control(minsplit = 200, cp = 1e-04, minbucket = 100)
+
+#fit data to decision tree model
+tree1 = rpart(quit_flag~., control = rpartContr, data = df_5YEAR)
+
+#plot tree
+library(partykit)
+plot(as.party(tree1))
+
+
+#prune the tree
+library(caret)
+
+set.seed(1234)
+
+Prunedtree1 = rpart(quit_flag ~ ., data = df_5YEAR,cp = 0.06015038)
+
+plot(as.party(Prunedtree1))
+
+
+
+set.seed(2166)
+
+#define training set
+trainingRows <- createDataPartition(df_5YEAR$quit_flag, p = .60, list= FALSE)
+
+#create training set
+trainData <- df_5YEAR[trainingRows, ]
+
+#create test set
+testData <- df_5YEAR[-trainingRows, ]
 
 
 
