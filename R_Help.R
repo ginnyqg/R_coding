@@ -246,6 +246,10 @@ ggplot(df_5YEAR, aes(x = timeframe_quit)) + geom_bar(stat="count", fill = '#56B4
 #confusion matrix between a txt file and Rdata
 l <- read.table('test_labels.txt')
 
+                         
+#open and read first few lines of RData file
+head(get(load('file path')))                         
+                         
 output <- get(load('pred_test.RData'))
 o <- as.matrix(output)[1:100,] #to compare with first 100 rows of o, for example
 
