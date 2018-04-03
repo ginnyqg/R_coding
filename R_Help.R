@@ -255,4 +255,12 @@ o <- as.matrix(output)[1:100,] #to compare with first 100 rows of o, for example
 
 confusionMatrix(o, l[1:100,])
                          
+#select rows where ColB (from ColA, ColB, ColC) has value of 1 (satify a condition)
+matrix[matirx[, 'ColB'] == 1, ]                        
+matrix[matirx[, 2] == 1, ]
+
+#or
+
+subset(movie_train, movie_train[, 'User'] == 1)                      
+subset(movie_train, movie_train[, 2] == 1)
                          
