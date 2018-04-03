@@ -261,6 +261,6 @@ matrix[matirx[, 2] == 1, ]
 
 #or
 
-subset(movie_train, movie_train[, 'User'] == 1)                      
-subset(movie_train, movie_train[, 2] == 1)
+subset(matrix, matrix[, 'ColB'] == 1)                      
+subset(matrix, matrix[, 2] == 1)
                          
