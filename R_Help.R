@@ -264,3 +264,9 @@ matrix[matirx[, 2] == 1, ]
 subset(matrix, matrix[, 'ColB'] == 1)                      
 subset(matrix, matrix[, 2] == 1)
                          
+#find system time to run something
+system.time()                       
+                         
+#find memory used to run something
+object.size()
+                         
