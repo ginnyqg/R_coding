@@ -269,4 +269,22 @@ system.time()
                          
 #find memory used to run something
 object.size()
+
+        
+#change RData file to data frame                         
+df <- as.data.frame(get(load('path.RData')))                         
+
+                         
+#set operation on x, y
+union(x, y) #in either
+intersect(x, y) #common in both
+setdiff(x, y) #in x, not in y
+setdiff(y, x) #in y, not in x
+setequal(x, y) #boolean, true or false
+                         
+                         
+                         
+                         
+                         
+                         
                          
