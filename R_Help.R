@@ -283,8 +283,8 @@ setdiff(y, x) #in y, not in x
 setequal(x, y) #boolean, true or false
                          
                          
-                         
-                         
+#check if all elements in d1 is equal to all elements in d2                         
+all(d1[ , ] == d2[ , ])      #na.rm = TRUE                   
                          
                          
                          
