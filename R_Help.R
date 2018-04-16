@@ -24,6 +24,9 @@ dim(dataset_you_name_it)
 #get column names of dataset
 names(dataset_you_name_it)
 
+#get first n column names of dataset
+dataset_you_name_it %>% colnames() %>% head(n)
+
 #get class/types of variables
 #apply a function to each element of a list in turn, but you want a vector back
 sapply(dataset_you_name_it, class)
