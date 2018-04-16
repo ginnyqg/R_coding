@@ -214,6 +214,15 @@ dataset_you_name_it$column_x[dataset_you_name_it$column_x == 'value1'] = 'value2
 #check missing value
 is.na()
 
+#count missing value in a column
+sum(is.na(df$col))
+
+#count missing value in a dataset
+sum(is.na(dataset_you_name_it))
+
+#calculate percentage of missing value in a dataset
+(sum(is.na(dataset_you_name_it))/(nrow(dataset_you_name_it) * ncol(dataset_you_name_it))) * 100
+
 #check which rows have missing value for column1
 which(is.na(dataset_you_name_it$column1))
 
@@ -238,8 +247,6 @@ female.height.no.missing.value = mean(data$height[which(data$set == 'Female')], 
 
 data$height[which(data$set == 'Female' & is.na(data$height))] = female.height.no.missing.value
 
-#count of missing value in a column
-sum(is.na(df$col))
 
 #drop columnA, notice no quotation mark
 df <- subset(df, select = -c(columnA))
