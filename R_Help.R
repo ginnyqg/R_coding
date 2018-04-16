@@ -221,7 +221,7 @@ sum(is.na(df$col))
 sum(is.na(dataset_you_name_it))
 
 #calculate percentage of missing value in a dataset
-(sum(is.na(dataset_you_name_it))/(nrow(dataset_you_name_it) * ncol(dataset_you_name_it))) * 100
+sum(is.na(dataset_you_name_it))/(nrow(dataset_you_name_it) * ncol(dataset_you_name_it))
 
 #check which rows have missing value for column1
 which(is.na(dataset_you_name_it$column1))
