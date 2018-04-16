@@ -1,0 +1,149 @@
+---
+Author: Ginny Gao
+Date: Apr 15, 2018
+Output:
+  pdf_document: default
+  html_document: default
+Title: Time Series on Web Traffic Analysis
+output:
+  html_document: default
+  pdf_document: default
+---
+
+# Goal
+
+
+# Load libraries
+
+```{r, messages = F, warning = F}
+
+# packages used in this R notebook
+packages.used <- c('ggplot2', 'ggthemes', 'scales', 'grid', 'gridExtra', 'corrplot', 'ggfortify', 
+				   'ggrepel', 'RColorBrewer', 'data.table', 'dplyr', 'readr', 'tibble', 'tidyr',
+				   'lazyeval', 'broom', 'stringr', 'purrr', 'forcats', 'lubridate', 'forecast',
+				   'prophet')
+
+# check packages need to be installed (not yet installed)
+packages.needed <- setdiff(packages.used, intersect(installed.packages()[,1], packages.used))
+
+# install additional packages
+if(length(packages.needed) > 0) {
+  install.packages(packages.needed, dependencies = TRUE, repos = 'http://cran.us.r-project.org')
+}
+
+# import packages
+library('ggplot2') # visualization
+library('ggthemes') # visualization
+library('scales') # visualization
+library('grid') # visualisation
+library('gridExtra') # visualisation
+library('corrplot') # visualisation
+library('ggfortify') # visualisation
+library('ggrepel') # visualisation
+library('RColorBrewer') # visualisation
+library('data.table') # data manipulation
+library('dplyr') # data manipulation
+library('readr') # data input
+library('tibble') # data wrangling
+library('tidyr') # data wrangling
+library('lazyeval') # data wrangling
+library('broom') # data wrangling
+library('stringr') # string manipulation
+library('purrr') # string manipulation
+library('forcats') # factor manipulation
+library('lubridate') # date and time
+library('forecast') # time series analysis
+library('prophet') # time series analysis
+```
+
+# Load and read data
+
+```{r}
+# load dataset train_1
+train <- fread('/Users/qinqingao/Desktop/Study/Kaggle/Time_Series/train_1.csv')
+
+# get dimension of dataset
+c(nrow(train), ncol(train))
+
+# take a look of first few rows of the dataset
+head(train)
+
+# take a look of first 10 column names
+train %>% colnames() %>% head(10)
+
+# take a look of first 10 values in column 'Page'
+train %>% select(Page) %>% head(10)
+
+# count how many NAs in train
+sum(is.na(train))
+
+# percentage of NAs in train
+sum(is.na(train))/(ncol(train) * nrow(train))
+
+
+# load dataset key_1
+key <- fread('/Users/qinqingao/Desktop/Study/Kaggle/Time_Series/key_1.csv')
+
+key %>% colnames() %>% head(5)
+key %>% select(Page) %>% head(5)
+key %>% select(Id) %>% head(5)
+
+# take a glimpse of dataset key
+glimpse(key)
+```
+
+# Clean Page column, extract contents (article, locale, access, agent) from url
+
+```{r}
+# create new dataset tdates, which is train dataset less 'Page' column
+tdates <- train %>% select(-Page)
+
+# create trowname, which is list of page names
+trowname <- train %>% select(Page) %>% rownames_to_column()
+
+# categorize page names by detecting strings in page names
+mediawiki <- trowname %>% filter(str_detect(Page, "mediawiki"))
+
+wikimedia <- trowname %>% filter(str_detect(Page, "wikimedia"))
+
+wikipedia <- trowname %>% filter(str_detect(Page, "wikipedia")) %>% 
+  filter(!str_detect(Page, "wikimedia")) %>%
+  filter(!str_detect(Page, "mediawiki"))
+
+# separate url with contents (article, locale, access, agent)
+
+wikipedia <- wikipedia %>%
+  separate(Page, into = c("front", "back"), sep = ".wikipedia.org_") %>%
+  separate(front, into = c("article", "locale"), sep = -3) %>%
+  separate(back, into = c("access", "agent"), sep = "_") %>%
+  mutate(locale = str_sub(locale, 2, 3))
+
+wikimedia <- wikimedia %>%
+  separate(Page, into = c("front", "back"), sep = ".wikimedia.org_") %>%
+  separate(front, into = c("article", "locale"), sep = -8) %>%
+  separate(back, into = c("access", "agent"), sep = "_") %>%
+ #mutate(locale = str_sub(locale, 2, 8))
+  mutate(locale = 'wikmed')
+
+mediawiki <- mediawiki %>%
+  separate(Page, into = c("front", "back"), sep = ".mediawiki.org_") %>%
+  separate(front, into = c("article", "locale"), sep = -4) %>%
+  separate(back, into = c("access", "agent"), sep = "_") %>%
+  mutate(locale = 'medwik')
+
+# stack these cleaned page names together
+tpages <- wikipedia %>% 
+		  full_join(wikimedia, by = c('rowname', 'article', 'locale', 'access', 'agent')) %>% 
+		  full_join(mediawiki, by = c('rowname', 'article', 'locale', 'access', 'agent'))
+
+# random sample 5 records
+sample_n(tpages, size = 5)
+
+# find search information about article 'The_Beatles'
+tpages %>% filter(str_detect(article, 'The_Beatles'))
+```
+
+
+
+
+
