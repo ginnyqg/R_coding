@@ -1,7 +1,7 @@
 #import csv Data
 dataset_you_name_it = read.csv(file = “csv file path”)
 
-#faster read of large file
+#FAST read of large file
 library(data.table)
 dataset_you_name_it <- fread('csv file path')
 
