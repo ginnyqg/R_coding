@@ -24,6 +24,9 @@ dim(dataset_you_name_it)
 #get column names of dataset
 names(dataset_you_name_it)
 
+#check datatype of a column
+typeof(dataset_you_name_it$colname)
+
 #get first n column names of dataset
 dataset_you_name_it %>% colnames() %>% head(n)
 
