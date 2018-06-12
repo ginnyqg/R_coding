@@ -122,6 +122,8 @@ dataset_you_name_it$specific_column_name
 dataset_you_name_it[['specific_column_name']]
 dataset_you_name_it[ ,'specific_column_name']
 
+#select dataset where a column meet the condition of starting with specific string
+dataset_you_name_it[startsWith(dataset_you_name_it$specific_column_name, 'abc') == TRUE,]
 
 #attach column names to the data frame, then no need to refer to dataset name when calling a column
 attach(dataset_you_name_it)
