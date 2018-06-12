@@ -309,5 +309,12 @@ setequal(x, y) #boolean, true or false
 #check if all elements in d1 is equal to all elements in d2                         
 all(d1[ , ] == d2[ , ])      #na.rm = TRUE                   
                          
+#extract date from date time time format                         
+#date time combined: 2013-08-01 00:00:00                         
+new_date <- gsub( " .*$", "", esp_wide$tstamp)
+#"2013-08-01"
+                         
+                         
+                         
                          
                          
