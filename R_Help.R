@@ -313,7 +313,10 @@ all(d1[ , ] == d2[ , ])      #na.rm = TRUE
 #date time combined: 2013-08-01 00:00:00                         
 new_date <- gsub( " .*$", "", esp_wide$tstamp)
 #"2013-08-01"
+new_time <- gsub( ".* ", "", esp_wide$tstamp)
+#"00:00:00"
                          
+# A space (), then any character (.) any number of times (*) until the end of the string ($). 
                          
                          
                          
