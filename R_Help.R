@@ -132,7 +132,7 @@ as.matrix()
 as.data.frame()
 
 
-#write data frames to files
+#write data frames to files, row.names = F means to exclude first index column)
 write.csv(dataset_you_name_it, 'csv_output.csv', row.names = F)
 write.table()
 
