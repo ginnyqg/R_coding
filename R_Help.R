@@ -1,5 +1,5 @@
 #import csv Data
-dataset_you_name_it = read.csv(file = “csv file path”)
+dataset_you_name_it <- read.csv('csv file path')
 
 #FAST read of large file
 library(data.table)
