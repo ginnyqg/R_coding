@@ -284,7 +284,7 @@ subset(matrix, matrix[, 2] == 1)
 
                          
 #select rows based on substring match                         
-esp_agua <- esp_wide[well %like% "Amer"]
+abc <- esp_wide[well %like% "Amer"]
                          
                          
 #find system time to run something
