@@ -326,7 +326,8 @@ colnames(df)[apply(df, 2, function(x) all(is.na(x)))]
 #remove columns where colnames contain certain string
 df_new <- df[, -which(grepl("abc", colnames(df)))]
                    
-
+#find length of a vector
+length(vec)
                    
                    
                    
