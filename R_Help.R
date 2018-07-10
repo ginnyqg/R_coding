@@ -318,6 +318,9 @@ new_time <- gsub( ".* ", "", esp_wide$tstamp)
                          
 # A space (), then any character (.) any number of times (*) until the end of the string ($). 
                          
-                         
-                         
-                         
+# find column names in df where they are all NA
+colnames(df)[apply(df, 2, function(x) all(is.na(x)))]                         
+
+                   
+                   
+                   
