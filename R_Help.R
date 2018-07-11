@@ -333,5 +333,12 @@ length(vec)
 pdf('filepath.pdf')
 plot(gg_vimp(file, nvar = 20))
 dev.off()
-                   
 
+
+#time operation
+begin <- Sys.time()
+model <- rfsrc(target_variable ~ ., data = train.dat,
+       tree.err = T, ntree = #, nodesize = #, do.trace = #)
+end <- Sys.time()
+end - begin                   
+                   
