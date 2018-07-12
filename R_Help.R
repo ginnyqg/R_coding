@@ -342,3 +342,13 @@ model <- rfsrc(target_variable ~ ., data = train.dat,
 end <- Sys.time()
 end - begin                   
                    
+       
+#predict
+predict(model, dataframe)
+               
+               
+               
+               
+               
+               
+               
