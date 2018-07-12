@@ -323,6 +323,10 @@ colnames(df)[apply(df, 2, function(x) all(is.na(x)))]
 # 2 represents margin = 2, over columns
 # 1 means over rows
                  
+names(dat)[sapply(dat, function(x) all(is.na(x)))]                   
+                   
+          
+                   
 #remove columns where colnames contain certain string
 df_new <- df[, -which(grepl("abc", colnames(df)))]
                    
@@ -347,7 +351,8 @@ end - begin
 predict(model, dataframe)
                
                
-               
+# conf OutOfMemoryError (Java): GC overhead limit
+options(java.parameters = "- Xmx1024m")               
                
                
                
