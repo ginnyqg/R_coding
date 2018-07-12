@@ -355,5 +355,5 @@ predict(model, dataframe)
 options(java.parameters = "- Xmx1024m")               
                
                
-               
+sapply(input.h2o, function(x) all(is.na(x)), 2)               
                
