@@ -354,6 +354,12 @@ predict(model, dataframe)
 # conf OutOfMemoryError (Java): GC overhead limit
 options(java.parameters = "- Xmx1024m")               
                
-               
-sapply(input.h2o, function(x) all(is.na(x)), 2)               
-               
+                               
+#histogram, set num of bins
+hist(vector, breaks = num)
+              
+       
+     
+       
+       
+       
