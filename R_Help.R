@@ -359,7 +359,35 @@ options(java.parameters = "- Xmx1024m")
 hist(vector, breaks = num)
               
        
-     
-       
-       
-       
+#for loop, python dict equivalent
+file_list <- c(test_fpath1, test_fpath2)
+
+actual <- 2
+pred <- 0
+thres <- 10
+
+#ds is test dataset for each file
+ds <- c()
+test.dat <- c()
+rf.pred <- c()
+err <- c()
+pred_fail <- c()
+
+for (i in seq(1, 2)) {
+ds[[i]] <- fread(file_list[i])
+ds[[i]] <- data.frame(ds[[i]])
+print(unique(ds[[i]]$well))
+test.dat[[i]] <- ds[[i]][, -which(names(ds[[i]]) %in% c('colA', 'colB', 'colC'))]
+print(dim(test.dat[[i]]))
+mod.pred[[i]] <- predict(modelM, test.dat[[i]]) 
+print(mod.pred[[i]])
+err[[i]] <- abs(mod.pred[[i]]$predicted - mod.pred[[i]]$yvar)
+pred_fail[[i]] <- if (sum(sum(err[[i]] > thres)) > 1) {1} else {0}
+print(pred_fail[[i]])
+tot <- tot + pred_fail[[i]]
+}
+
+print(tot)
+
+               
+   
