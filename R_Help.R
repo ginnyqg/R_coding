@@ -398,11 +398,17 @@ df$col_ValueIn[df$ColA == 1 & df$ColB == 'Abc']
 timestamp <- as.POSIXct(df$ts)
       
 #plot residuals, center title, with styled vertical, horizontal lines, add legend
-qplot(timestamp, res, xlab = "Date Time", ylab = "Y", main = paste('Abc', 'def')) + 
+#save fig in the path as pdf, specify fig size
+pdf('path/fig_123.pdf', width = 10, height = 6)
+               
+qplot(as.Date(timestamp), res, xlab = "Date Time", ylab = "Y", main = paste('Abc', 'def')) + 
 theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 16)) +
-geom_vline(aes(xintercept = c(as.POSIXct(start_ts), as.POSIXct(end_ts)), color = c('start', 'end')), linetype = c('solid', 'dashed'), lwd = 0.5, show.legend = T) + 
+geom_vline(aes(xintercept = c(as.Date(as.POSIXct(start_ts)), as.Date(as.POSIXct(end_ts))), color = c('start', 'end')), linetype = c('solid', 'dashed'), lwd = 0.5, show.legend = T) + 
 scale_color_manual("Start, end", values = c("start" = "red", "end" = "green")) +
-geom_hline(yintercept = 5, color = 'coral', linetype = 'dashed', lwd = 0.8)
+geom_hline(yintercept = 5, color = 'coral', linetype = 'dashed', lwd = 0.8) +
+scale_x_date(labels = date_format("%Y-%b-%d"))
+               
+dev.off()
 
                
  
