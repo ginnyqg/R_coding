@@ -401,7 +401,7 @@ timestamp <- as.POSIXct(df$ts)
 #save fig in the path as pdf, specify fig size
 pdf('path/fig_123.pdf', width = 10, height = 6)
                
-qplot(as.Date(timestamp), res, xlab = "Date Time", ylab = "Y", main = paste('Abc', 'def')) + 
+qplot(as.Date(timestamp), res, xlab = "X", ylab = "Y", main = paste('Abc', 'def')) + 
 theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 16)) +
 geom_vline(aes(xintercept = c(as.Date(as.POSIXct(start_ts)), as.Date(as.POSIXct(end_ts))), color = c('start', 'end')), linetype = c('solid', 'dashed'), lwd = 0.5, show.legend = T) + 
 scale_color_manual("Start, end", values = c("start" = "red", "end" = "green")) +
@@ -411,7 +411,44 @@ scale_x_date(labels = date_format("%Y-%b-%d"))
 dev.off()
 
                
- 
+
+#plot 4 in 1, share x-axis               
+p1 <- qplot(as.Date(timestamp), res1, xlab = 'X', ylab = 'Y1', main = 'Abc') + 
+theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 14)) +
+geom_vline(aes(xintercept = c(as.Date(as.POSIXct(start_ts)), as.Date(as.POSIXct(end_ts))), color = c('start', 'end')), linetype = c('solid', 'dashed'), lwd = 0.5, show.legend = T) + 
+scale_color_manual('Start, end', values = c('start' = 'red', 'end' = 'green')) + 
+geom_hline(yintercept = 10, color = 'coral', linetype = 'dashed', lwd = 0.8) +
+scale_x_date(labels = date_format("%Y-%b-%d")) +
+theme(axis.title.x = element_blank(), axis.text.x = element_blank(), plot.margin = unit(c(1, 1, -0.02, 1), "cm"))
+
+p2 <- qplot(as.Date(timestamp), res2, xlab = 'X', ylab = 'Y2') + 
+theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 14)) +
+geom_vline(aes(xintercept = c(as.Date(as.POSIXct(start_ts)), as.Date(as.POSIXct(end_ts))), color = c('start', 'end')), linetype = c('solid', 'dashed'), lwd = 0.5, show.legend = T) + 
+scale_color_manual('Start, end', values = c('start' = 'red', 'end' = 'green')) + 
+geom_hline(yintercept = 200, color = 'coral', linetype = 'dashed', lwd = 0.8) +
+scale_x_date(labels = date_format("%Y-%b-%d")) +
+theme(axis.title.x = element_blank(), axis.text.x = element_blank(), plot.margin = unit(c(-0.02, 1, -0.02, 1), "cm"))
+
+p3 <- qplot(as.Date(timestamp), res3, xlab = 'X', ylab = 'Y3') + 
+theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 14)) +
+geom_vline(aes(xintercept = c(as.Date(as.POSIXct(start_ts)), as.Date(as.POSIXct(end_ts))), color = c('start', 'end')), linetype = c('solid', 'dashed'), lwd = 0.5, show.legend = T) + 
+scale_color_manual('Start, end', values = c('start' = 'red', 'end' = 'green')) + 
+geom_hline(yintercept = 2, color = 'coral', linetype = 'dashed', lwd = 0.8) +
+scale_x_date(labels = date_format("%Y-%b-%d")) +
+theme(axis.title.x = element_blank(), axis.text.x = element_blank(), plot.margin = unit(c(-0.02, 1, -0.02, 1), "cm"))
+
+p4 <- qplot(as.Date(timestamp), res4, xlab = 'X', ylab = 'Y4') + 
+theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 14)) +
+geom_vline(aes(xintercept = c(as.Date(as.POSIXct(start_ts)), as.Date(as.POSIXct(end_ts))), color = c('start', 'end')), linetype = c('solid', 'dashed'), lwd = 0.5, show.legend = T) + 
+scale_color_manual('Start, end', values = c('start' = 'red', 'end' = 'green')) + 
+geom_hline(yintercept = 0.05, color = 'coral', linetype = 'dashed', lwd = 0.8) +
+scale_x_date(labels = date_format("%Y-%b-%d")) +
+theme(axis.title.x = element_blank(), plot.margin = unit(c(-0.02, 1, 1, 1), "cm"))
+
+
+grid.newpage()
+grid.draw(rbind(ggplotGrob(p1), ggplotGrob(p2), ggplotGrob(p3), ggplotGrob(p4), size = "last"))
+
                
                
                
