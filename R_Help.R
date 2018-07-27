@@ -397,12 +397,12 @@ df$col_ValueIn[df$ColA == 1 & df$ColB == 'Abc']
 #change datatype from character to timestamp
 timestamp <- as.POSIXct(df$ts)
       
-#plot residuals, with styled vertical lines
+#plot residuals, with styled vertical, horizontal lines
 qplot(timestamp, res, xlab = "Date Time", ylab = "Y", main = paste('Abc', 'def')) + 
 geom_vline(aes(xintercept = c(as.POSIXct(start_ts), as.POSIXct(end_ts)), color = c('start', 'end')), linetype = c('solid', 'dashed'), lwd = 0.5, show.legend = T) + 
-scale_color_manual("Start, end", values = c("start" = "red", "end" = "green"))
+scale_color_manual("Start, end", values = c("start" = "red", "end" = "green")) +
+geom_hline(yintercept = 5, color = 'coral', linetype = 'dashed', lwd = 0.8)
 
-               
                
                
                
