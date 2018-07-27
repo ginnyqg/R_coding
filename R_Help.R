@@ -399,7 +399,7 @@ timestamp <- as.POSIXct(df$ts)
       
 #plot residuals, center title, with styled vertical, horizontal lines, add legend
 qplot(timestamp, res, xlab = "Date Time", ylab = "Y", main = paste('Abc', 'def')) + 
-theme(plot.title = element_text(hjust = 0.5)) +
+theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 16)) +
 geom_vline(aes(xintercept = c(as.POSIXct(start_ts), as.POSIXct(end_ts)), color = c('start', 'end')), linetype = c('solid', 'dashed'), lwd = 0.5, show.legend = T) + 
 scale_color_manual("Start, end", values = c("start" = "red", "end" = "green")) +
 geom_hline(yintercept = 5, color = 'coral', linetype = 'dashed', lwd = 0.8)
