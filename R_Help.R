@@ -390,4 +390,7 @@ tot <- tot + pred_fail[[i]]
 print(tot)
 
                
-   
+               
+#find values based on column values in a  dataframe              
+df$col_ValueIn[df$ColA == 1 & df$ColB == 'Abc']               
+               
