@@ -398,7 +398,7 @@ df$col_ValueIn[df$ColA == 1 & df$ColB == 'Abc']
 timestamp <- as.POSIXct(df$ts)
       
 #plot residuals, with styled vertical lines
-qplot(timestamp, res, xlab = "Date Time", ylab = "Y", main = "Title") + 
+qplot(timestamp, res, xlab = "Date Time", ylab = "Y", main = paste('Abc', 'def')) + 
 geom_vline(aes(xintercept = c(as.POSIXct(start_ts), as.POSIXct(end_ts)), color = c('start', 'end')), linetype = c('solid', 'dashed'), lwd = 0.5, show.legend = T) + 
 scale_color_manual("Start, end", values = c("start" = "red", "end" = "green"))
 
