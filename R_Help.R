@@ -389,8 +389,24 @@ tot <- tot + pred_fail[[i]]
 
 print(tot)
 
-               
-               
+                             
 #find values based on column values in a  dataframe              
 df$col_ValueIn[df$ColA == 1 & df$ColB == 'Abc']               
+               
+#plot with vertical lines
+#change datatype from character to timestamp
+timestamp <- as.POSIXct(df$ts)
+      
+#plot residuals, with styled vertical lines
+qplot(timestamp, res, xlab = "Date Time", ylab = "Y", main = "Title") + 
+geom_vline(aes(xintercept = c(as.POSIXct(start_ts), as.POSIXct(end_ts)), color = c('start', 'end')), linetype = c('solid', 'dashed'), lwd = 0.5, show.legend = T) + 
+scale_color_manual("Start, end", values = c("start" = "red", "end" = "green"))
+
+               
+               
+               
+               
+               
+               
+               
                
