@@ -451,5 +451,22 @@ grid.draw(rbind(ggplotGrob(p1), ggplotGrob(p2), ggplotGrob(p3), ggplotGrob(p4), 
 
                
                
+#plot histogram-like if data very skewed               
+plot(cut(data, breaks = 4))
+               
+
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
                
                
