@@ -454,7 +454,8 @@ grid.draw(rbind(ggplotGrob(p1), ggplotGrob(p2), ggplotGrob(p3), ggplotGrob(p4), 
 #plot histogram-like if data very skewed               
 plot(cut(data, breaks = 4))
                
-
+#remove last item of a vector x
+x[1 : (length(x) - 1)]
                
                
                
