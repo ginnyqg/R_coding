@@ -283,6 +283,14 @@ subset(matrix, matrix[, 'ColB'] == 1)
 subset(matrix, matrix[, 2] == 1)
 
                          
+#select rows from dataset where a column meet a condition                         
+dat[which(dat$colA > 0), ]
+
+
+#change value from one to another in a column                         
+dat$colA <- gsub("Abc", 1, dat$colA)                         
+                         
+                         
 #select rows based on substring match                         
 abc <- esp_wide[well %like% "Amer"]
                          
