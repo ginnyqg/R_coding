@@ -293,8 +293,12 @@ dat$colA <- gsub("Abc", 1, dat$colA)
                          
 #select rows based on substring match                         
 abc <- esp_wide[well %like% "Amer"]
+
                          
+#extract specific columns by column name                        
+dat[, c('colA', 'colB')]                         
                          
+                                                 
 #find system time to run something
 system.time()                       
                          
