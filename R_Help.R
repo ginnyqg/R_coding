@@ -466,9 +466,18 @@ plot(cut(data, breaks = 4))
 x[1 : (length(x) - 1)]
                
                
-               
-               
-               
+#create survival object
+dat <- fread('file')
+head(dat$time_to_fail)
+dat <- data.frame(dat)
+dim(dat)
+# ttf <- as.numeric(as.POSIXct('1999-01-10 09:00:00') - as.POSIXct(dat$tstamp))
+# km <- with(dat, Surv(ttf, failure_zone))
+km <- with(dat, Surv(time_to_fail, failure_zone))               
+dim(km)              
+km_fit <- survfit(Surv(time_to_fail, failure_zone) ~ 1, data = dat)
+summary(km_fit, times = c(1, 30, 60, 90 * (1 : 10)))
+autoplot(km_fit)               
                
                
                
