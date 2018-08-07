@@ -487,7 +487,7 @@ autoplot(km_fit)
 #  https://rstudio-pubs-static.s3.amazonaws.com/5588_72eb65bfbe0a4cb7b655d2eee0751584.html                          
 #http://rstudio-pubs-static.s3.amazonaws.com/16003_8d6f2069af094998bfbb3d3a7dfb1c17.html
                
-               
-               
+#concatenate 2 dataframes vertically
+dat <- rbind(a, b)               
                
                
