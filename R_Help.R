@@ -489,5 +489,24 @@ autoplot(km_fit)
                
 #concatenate 2 dataframes vertically
 dat <- rbind(a, b)               
+      
+               
+               
+#check if packages needed already installed, if not installing, loading required packages  
+               
+pkg <- c("tidyverse", "survival", "ggfortify", "survminer", "plotly", "gridExtra", 
+         "Epi", "KMsurv", "gnm", "cmprsk", "mstate", "flexsurv", "splines",
+         "epitools", "eha", "shiny", "ctqr", "scales")
+               
+new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+               
+if (length(new.pkg)) install.packages(new.pkg, dependencies = TRUE)
+               
+sapply(pkg, require, character.only = TRUE)               
+               
+
+               
+               
+               
                
                
