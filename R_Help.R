@@ -1,6 +1,9 @@
 #import csv Data
 dataset_you_name_it <- read.csv('csv file path')
 
+#read data from website
+dat <- read.table("http://...txt")
+
 #FAST read of large file
 library(data.table)
 dataset_you_name_it <- fread('csv file path')
@@ -404,7 +407,7 @@ print(tot)
                              
 #find values based on column values in a  dataframe              
 df$col_ValueIn[df$ColA == 1 & df$ColB == 'Abc']               
-               
+       
 #plot with vertical lines
 #change datatype from character to timestamp
 timestamp <- as.POSIXct(df$ts)
@@ -461,7 +464,7 @@ theme(axis.title.x = element_blank(), plot.margin = unit(c(-0.02, 1, 1, 1), "cm"
 grid.newpage()
 grid.draw(rbind(ggplotGrob(p1), ggplotGrob(p2), ggplotGrob(p3), ggplotGrob(p4), size = "last"))
 
-               
+
                
 #plot histogram-like if data very skewed               
 plot(cut(data, breaks = 4))
