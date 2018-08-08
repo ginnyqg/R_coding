@@ -521,6 +521,6 @@ title("A)")
 boxes.matrix(tm2, boxpos = TRUE)
 title("B)")
                
-               
-               
+#https://rpubs.com/alecri/258589
+            
                
