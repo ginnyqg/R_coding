@@ -523,4 +523,10 @@ title("B)")
                
 #https://rpubs.com/alecri/258589
             
+#print class for each column in the dataset
+sapply(dat, class)
+               
+               
+               
+               
                
