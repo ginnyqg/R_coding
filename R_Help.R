@@ -509,6 +509,17 @@ sapply(pkg, require, character.only = TRUE)
                
 
                
+#draw diagrams in R
+tm <- matrix(c(NA, NA, 1, NA), ncol = 2)
+rownames(tm) <- colnames(tm) <- c("Result 1", "Result 2")
+tm2 <- matrix(c(NA, NA, NA, 1, NA, NA, 2, NA, NA), ncol = 3)
+rownames(tm2) <- colnames(tm2) <- levels(dat$event)
+par(mfrow = c(1, 2))
+layout(rbind(c(1, 2, 2)))
+boxes.matrix(tm, boxpos = TRUE)
+title("A)")
+boxes.matrix(tm2, boxpos = TRUE)
+title("B)")
                
                
                
