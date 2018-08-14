@@ -528,5 +528,81 @@ sapply(dat, class)
                
                
                
+#Survival analysis
+
+library(data.table)
+library(randomForestSRC)
+library(ggRandomForests)
+library(dplyr)
+library(survival)
+library(pec)
+library(ggfortify)
+library(flexsurv)
+library(survminer)
+library(randomForestSRC)
+library(survcomp)
+
+
+dat <- fread('path to train file')
+dat <- data.frame(dat)
+
+#remove useless column
+dat <- dat[, -which(names(dat) %in% c('useless_col'))]
+dim(dat)
+
+#check any column all NA and remove them               
+colnames(dat)[apply(dat, 2, function(x) all(is.na(x)))]
+length(colnames(dat)[apply(dat, 2, function(x) all(is.na(x)))])
+dat <- dat[, -which(grepl("Abc", colnames(dat)))]
+dim(dat)
+
+#retain complete cases only                           
+dat_cc <- dat[complete.cases(dat), ]
+dim(dat_cc)
+
+
+## Create survival object
+dat_cc$SurvObj <- with(dat_cc, Surv(time_to_fail, status))
+head(dat_cc)
+                           
+
+## Fit Cox Proportional Hazards Model
+res.cox <- coxph(formula = SurvObj ~ Col1 + Col2, data = dat_cc)
+summary(res.cox)               
+                            
+               
+## Plot survival curve
+res.cox_fit <- survfit(res.cox)
+summary(res.cox_fit)
+plot(res.cox_fit, main = 'Cox Proportional Hazards Model', xlab = 'Hours', ylab = 'Surv Prob')
+ggsurvplot(fit = res.cox_fit, data = dat_cc, risk.table = TRUE, xlab = 'Time (hours)', censor = T, title = 'Cox Proportional Hazards Model')
+               
+               
+## Prep for test data (if separate from train)
+dat_test <- fread('path to file name')
+dat_test <- data.frame(dat_test)
+
+#remove useless column
+dat_test <- dat_test[, -which(names(dat_test) %in% c('useless_col'))]
+dim(dat_test)
+
+#check any column all NA and remove them
+colnames(dat_test)[apply(dat_test, 2, function(x) all(is.na(x)))]
+length(colnames(dat_test)[apply(dat_test, 2, function(x) all(is.na(x)))])
+dat_test <- dat_test[, -which(grepl("Abc", colnames(dat_test)))]
+dim(dat_test)
+
+#retain complete cases only
+dat_test_cc <- dat_test[complete.cases(dat_test), ]
+dim(dat_test_cc)
+
+# Create survival estimates on validation data
+pred_validation = predict(res.cox, newdata = dat_test_cc)
+
+# Determine concordance
+cindex_validation = concordance.index(pred_validation, surv.time = dat_test_cc$time_to_fail,
+                                       surv.event = dat_test_cc$status, method = "noether")
+cindex_validation$c.index
+               
                
                
