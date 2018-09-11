@@ -605,4 +605,11 @@ cindex_validation = concordance.index(pred_validation, surv.time = dat_test_cc$t
 cindex_validation$c.index
                
                
-               
+#print current working directory
+getwd()
+                                
+                                
+                                
+                                
+                                
+                                
