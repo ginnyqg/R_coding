@@ -628,5 +628,14 @@ names(table(dataset))
 # sort value descendingly in table
 sort(table(dataset), decreasing = TRUE)                                
                                 
+
+# plot barplot for top 20 items for condition
+par(mar = c(10, 4, 2, 2) + 2)
+ylim <- c(0, 1.1 * max(as.vector(table(dataset)))
+# plot barplot
+bplot <- barplot(height = table(dataset), ylim = ylim, names.arg = names(table(dataset)), horiz = F, las = 2, col = rainbow(21), main = "Top 20 items for condition", cex.names = 0.8)
+# add label for bars
+text(x = bplot, y = as.vector(table(dataset)), label = as.vector(table(dataset)), pos = 3, cex = 1.1)
+
                                 
                                 
