@@ -617,8 +617,12 @@ table(droplevels(dataset$col))
 sum(table(droplevels(dataset$col))                                )
                                 
                                 
+# get number from table function
+as.vector(table(dataset))
                                 
                                 
+# get variable names from table function
+names(table(dataset))                              
                                 
                                 
                                 
