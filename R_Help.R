@@ -623,8 +623,10 @@ as.vector(table(dataset))
                                 
 # get variable names from table function
 names(table(dataset))                              
+  
                                 
-                                
+# sort value descendingly in table
+sort(table(dataset), decreasing = TRUE)                                
                                 
                                 
                                 
