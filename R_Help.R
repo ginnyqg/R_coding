@@ -609,6 +609,17 @@ cindex_validation$c.index
 getwd()
                                 
                                 
+# table function, don't show counts == 0
+table(droplevels(dataset$col))
+
+                                
+# count non-zero counts
+sum(table(droplevels(dataset$col))                                )
+                                
+                                
+                                
+                                
+                                
                                 
                                 
                                 
