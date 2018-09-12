@@ -638,4 +638,15 @@ bplot <- barplot(height = table(dataset), ylim = ylim, names.arg = names(table(d
 text(x = bplot, y = as.vector(table(dataset)), label = as.vector(table(dataset)), pos = 3, cex = 1.1)
 
                                 
-                                
+# create pie chart
+lbls <- paste(names(table(dataset)), "\n", table(dataset), sep = "")
+# pie(table(dataset), labels = lbls, main = "XYZ")
+library(plotrix)
+pie3D(as.vector(table(dataset)), labels = lbls, main = NA, explode = 0.1, radius = .9, labelcex = 1.2,  start = 0.01)
+title("XYZ", line = -5)
+
+          
+          
+          
+          
+          
