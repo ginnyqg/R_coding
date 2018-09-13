@@ -646,6 +646,8 @@ pie3D(as.vector(table(dataset)), labels = lbls, main = NA, explode = 0.1, radius
 title("XYZ", line = -5)
 
           
+# histogram          
+hist(as.numeric(data0[data0$colA == 'Abc' ,]$colB), main = 'XYZ', xlab = 'time', breaks = 15, xlim = c(0, 4000), col = 'darksalmon', labels = TRUE)
           
           
           
