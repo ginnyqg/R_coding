@@ -650,5 +650,12 @@ title("XYZ", line = -5)
 hist(as.numeric(data0[data0$colA == 'Abc' ,]$colB), main = 'XYZ', xlab = 'time', breaks = 15, xlim = c(0, 4000), col = 'darksalmon', labels = TRUE)
           
           
+# Add Straight Lines to a Plot
+abline(ls2, col = 'red')
+legend('bottomright', c('regression line'), col = 'red', lwd = 1, bty = 'n')
+          
+          
+          
+          
           
           
