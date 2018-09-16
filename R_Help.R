@@ -655,7 +655,8 @@ abline(ls2, col = 'red')
 legend('bottomright', c('regression line'), col = 'red', lwd = 1, bty = 'n')
           
           
-          
-          
+# fit model with every variable (except for target) other than 1 independent variable
+model <- modeltype(DV ~ . -excluded_IV, data = abc)
+
           
           
