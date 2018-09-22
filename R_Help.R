@@ -1,5 +1,6 @@
 #import csv Data
 dataset_you_name_it <- read.csv('csv file path')
+dataset_you_name_it <- read.csv('url/file.csv', header = T, na.string = ',')
 
 #read data from website
 dat <- read.table("http://...txt")
