@@ -660,4 +660,18 @@ legend('bottomright', c('regression line'), col = 'red', lwd = 1, bty = 'n')
 model <- modeltype(DV ~ . -excluded_IV, data = abc)
 
           
+# R markdown knit to pdf, prevent line cutoff
+library(knitr)
+opts_chunk$set(tidy.opts = list(width.cutoff = 60), tidy = TRUE)
+          
+          
+          
+          
+
+          
+          
+          
+          
+          
+          
           
