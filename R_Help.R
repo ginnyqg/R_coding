@@ -664,10 +664,38 @@ model <- modeltype(DV ~ . -excluded_IV, data = abc)
 library(knitr)
 opts_chunk$set(tidy.opts = list(width.cutoff = 60), tidy = TRUE)
           
+ 
           
+# train-test split, i.e., 80-20
+set.seed(1234)
+subset <- sample(nrow(df), nrow(df) * 0.8)
+
+train <- df[subset, ]
+test <- df[-subset, ]          
+
           
+# Fit linear regression on training data, full model (use all independent variables)
+lr_full <- lm(Y ~ ., data = train)
+summary(lr_full)
+
+# Predict on test data
+predict_app <- predict(lr_full, test)
+          
+# Produce test error, mse
+test_error <- mean((test$Y - predict_app)^2)
+test_error          
           
 
+    
+          
+          
+          
+          
+          
+          
+          
+          
+          
           
           
           
