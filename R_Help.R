@@ -668,10 +668,10 @@ opts_chunk$set(tidy.opts = list(width.cutoff = 60), tidy = TRUE)
           
 # train-test split, i.e., 80-20
 set.seed(1234)
-subset <- sample(nrow(df), nrow(df) * 0.8)
+sample_row_num <- sample(nrow(df), nrow(df) * 0.8)
 
-train <- df[subset, ]
-test <- df[-subset, ]          
+train <- df[sample_row_num, ]
+test <- df[-sample_row_num, ]          
 
           
 # Fit linear regression on training data, full model (use all independent variables)
