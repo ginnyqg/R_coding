@@ -585,7 +585,8 @@ library(ggfortify)
                            
                            
 model_promo <- survfit(Surv(as.numeric(time), status) ~ Promo_Flag, data = dat)
-promo_plot <- autoplot(model_promo)
+promo_plot <- autoplot(model_promo) + labs(x = 'Time (days)', y = 'Survival Probability (%)', title = 'ABC') +
+				theme(plot.title = element_text(hjust = 0.5), title = element_text(size = 14, face = 'bold'))
 
 #change legend name
 cols <- c("1" = "green", "0" = "red")
