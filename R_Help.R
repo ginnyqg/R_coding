@@ -578,7 +578,23 @@ summary(res.cox_fit)
 plot(res.cox_fit, main = 'Cox Proportional Hazards Model', xlab = 'Hours', ylab = 'Surv Prob')
 ggsurvplot(fit = res.cox_fit, data = dat_cc, risk.table = TRUE, xlab = 'Time (hours)', censor = T, title = 'Cox Proportional Hazards Model')
                
-               
+
+library(ggplot2)
+library(dplyr)
+library(ggfortify)
+                           
+                           
+model_promo <- survfit(Surv(as.numeric(time), status) ~ Promo_Flag, data = dat)
+promo_plot <- autoplot(model_promo)
+
+#change legend name
+cols <- c("1" = "green", "0" = "red")
+promo_plot_label <- promo_plot +  guides(fill = FALSE) + labs(color = "Promo_Flag") + 
+				 scale_color_manual(values = cols, breaks = c("1", "0"), labels = c("Promoted", "Not promoted"))
+print(promo_plot_label)                           
+                           
+                                                                  
+                           
 ## Prep for test data (if separate from train)
 dat_test <- fread('path to file name')
 dat_test <- data.frame(dat_test)
