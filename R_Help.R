@@ -633,7 +633,32 @@ cindex_validation = concordance.index(pred_validation, surv.time = dat_test_cc$t
                                        surv.event = dat_test_cc$status, method = "noether")
 cindex_validation$c.index
                
-               
+				
+				
+# Fit Cox PH model
+fit_cox_f <- coxph(Surv(as.numeric(Length_Stay), Status) ~ ., data = train)
+summary(fit_cox_f)
+
+# Predict on test data on median
+pred <- survfit(fit_cox_f, newdata = test)
+# summary(pred)
+test$Prediction <- summary(pred)$table[, 'median']
+
+# Prediction on test data
+test$Prediction
+
+# Error in absolute value
+err <- abs(test$Length_Stay - test$Prediction)
+
+# RMSE on test data
+test_error <- sqrt(mean(err^2, na.rm = TRUE))
+test_error 				
+				
+				
+				
+				
+				
+				
 #print current working directory
 getwd()
                                 
