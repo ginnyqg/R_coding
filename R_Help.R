@@ -487,7 +487,18 @@ km_fit <- survfit(Surv(time_to_fail, failure_zone) ~ 1, data = dat)
 summary(km_fit, times = c(1, 30, 60, 90 * (1 : 10)))
 autoplot(km_fit)               
                
-               
+
+km <- with(train, Surv(as.numeric(Length_Stay), Status))
+km_fit <- survfit(km ~ 1, data = train)
+# show summary of # of records, # of events, median of time till event occur, and 95% CI
+km_fit
+summary(km_fit, times = c(1, 30, 60, 90 * (1 : 10)))
+# show # at risk, # of events (people who left) after each 6 months, start from beginning
+summary(km_fit, times = c(0, 180, 365, 545, 730, 910, 1095))
+# see how long (how many days) 75%, 50%, 25% object will survive
+quantile(km_fit, probs = 1 - c(0.75, 0.5, 0.25))	       
+	       
+	       
 #  https://rstudio-pubs-static.s3.amazonaws.com/5588_72eb65bfbe0a4cb7b655d2eee0751584.html                          
 #http://rstudio-pubs-static.s3.amazonaws.com/16003_8d6f2069af094998bfbb3d3a7dfb1c17.html
                
