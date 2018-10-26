@@ -50,6 +50,15 @@ summary(dataset_you_name_it)
 #pairwise correlation visualization
 pairs(dataset_you_name_it)
 
+
+#correlation matrix plot
+dat_sel$colC <- as.numeric(dat_sel$colC)
+num_predictors <- c("colA", "colB", "colC")
+num_m <- dat_sel[, num_predictors]
+corrplot.mixed(cor(num_m), lower = "circle", upper = "number", tl.pos = "lt", diag = "u", is.corr = FALSE, mar = c(0, 0, 5, 8), tl.offset = 1)
+mtext("Correlation of Numerical Features", at = 4.3, line = -5, cex = 1.5)
+
+
 #boxplot
 boxplot(“y variable”~”x variable”, data = dataset_you_name_it)
 
@@ -141,8 +150,6 @@ as.data.frame()
 #write data frames to files, row.names = F means to exclude first index column)
 write.csv(dataset_you_name_it, 'csv_output.csv', row.names = F)
 write.table()
-
-
 
 
 
@@ -332,9 +339,9 @@ new_date <- gsub( " .*$", "", esp_wide$tstamp)
 new_time <- gsub( ".* ", "", esp_wide$tstamp)
 #"00:00:00"
                          
-# A space (), then any character (.) any number of times (*) until the end of the string ($). 
+#A space (), then any character (.) any number of times (*) until the end of the string ($). 
                          
-# find column names in df where they are all NA
+#find column names in df where they are all NA
 colnames(df)[apply(df, 2, function(x) all(is.na(x)))]                         
 # 2 represents margin = 2, over columns
 # 1 means over rows
@@ -367,7 +374,7 @@ end - begin
 predict(model, dataframe)
                
                
-# conf OutOfMemoryError (Java): GC overhead limit
+#conf OutOfMemoryError (Java): GC overhead limit
 options(java.parameters = "- Xmx1024m")               
                
                                
@@ -490,12 +497,12 @@ autoplot(km_fit)
 
 km <- with(train, Surv(as.numeric(Length_Stay), Status))
 km_fit <- survfit(km ~ 1, data = train)
-# show summary of # of records, # of events, median of time till event occur, and 95% CI
+#show summary of # of records, # of events, median of time till event occur, and 95% CI
 km_fit
 summary(km_fit, times = c(1, 30, 60, 90 * (1 : 10)))
-# show # at risk, # of events (people who left) after each 6 months, start from beginning
+#show # at risk, # of events (people who left) after each 6 months, start from beginning
 summary(km_fit, times = c(0, 180, 365, 545, 730, 910, 1095))
-# see how long (how many days) 75%, 50%, 25% object will survive
+#see how long (how many days) 75%, 50%, 25% object will survive
 quantile(km_fit, probs = 1 - c(0.75, 0.5, 0.25))	       
 	       
 	       
@@ -573,17 +580,17 @@ dat_cc <- dat[complete.cases(dat), ]
 dim(dat_cc)
 
 
-## Create survival object
+##Create survival object
 dat_cc$SurvObj <- with(dat_cc, Surv(time_to_fail, status))
 head(dat_cc)
                            
 
-## Fit Cox Proportional Hazards Model
+##Fit Cox Proportional Hazards Model
 res.cox <- coxph(formula = SurvObj ~ Col1 + Col2, data = dat_cc)
 summary(res.cox)               
                             
                
-## Plot survival curve
+##Plot survival curve
 res.cox_fit <- survfit(res.cox)
 summary(res.cox_fit)
 plot(res.cox_fit, main = 'Cox Proportional Hazards Model', xlab = 'Hours', ylab = 'Surv Prob')
@@ -607,7 +614,7 @@ print(promo_plot_label)
                            
                                                                   
                            
-## Prep for test data (if separate from train)
+##Prep for test data (if separate from train)
 dat_test <- fread('path to file name')
 dat_test <- data.frame(dat_test)
 
@@ -625,32 +632,32 @@ dim(dat_test)
 dat_test_cc <- dat_test[complete.cases(dat_test), ]
 dim(dat_test_cc)
 
-# Create survival estimates on validation data
+#Create survival estimates on validation data
 pred_validation = predict(res.cox, newdata = dat_test_cc)
 
-# Determine concordance
+#Determine concordance
 cindex_validation = concordance.index(pred_validation, surv.time = dat_test_cc$time_to_fail,
                                        surv.event = dat_test_cc$status, method = "noether")
 cindex_validation$c.index
                
 				
 				
-# Fit Cox PH model
+#Fit Cox PH model
 fit_cox_f <- coxph(Surv(as.numeric(Length_Stay), Status) ~ ., data = train)
 summary(fit_cox_f)
 
-# Predict on test data on median
+#Predict on test data on median
 pred <- survfit(fit_cox_f, newdata = test)
-# summary(pred)
+#summary(pred)
 test$Prediction <- summary(pred)$table[, 'median']
 
-# Prediction on test data
+#Prediction on test data
 test$Prediction
 
-# Error in absolute value
+#Error in absolute value
 err <- abs(test$Length_Stay - test$Prediction)
 
-# RMSE on test data
+#RMSE on test data
 test_error <- sqrt(mean(err^2, na.rm = TRUE))
 test_error 				
 				
@@ -663,63 +670,63 @@ test_error
 getwd()
                                 
                                 
-# table function, don't show counts == 0
+#table function, don't show counts == 0
 table(droplevels(dataset$col))
 
                                 
-# count non-zero counts
+#count non-zero counts
 sum(table(droplevels(dataset$col))                                )
                                 
                                 
-# get number from table function
+#get number from table function
 as.vector(table(dataset))
                                 
                                 
-# get variable names from table function
+#get variable names from table function
 names(table(dataset))                              
   
                                 
-# sort value descendingly in table
+#sort value descendingly in table
 sort(table(dataset), decreasing = TRUE)                                
                                 
 
-# plot barplot for top 20 items for condition
+#plot barplot for top 20 items for condition
 par(mar = c(10, 4, 2, 2) + 2)
 ylim <- c(0, 1.1 * max(as.vector(table(dataset)))
-# plot barplot
+#plot barplot
 bplot <- barplot(height = table(dataset), ylim = ylim, names.arg = names(table(dataset)), horiz = F, las = 2, col = rainbow(21), main = "Top 20 items for condition", cex.names = 0.8)
-# add label for bars
+#add label for bars
 text(x = bplot, y = as.vector(table(dataset)), label = as.vector(table(dataset)), pos = 3, cex = 1.1)
 
                                 
-# create pie chart
+#create pie chart
 lbls <- paste(names(table(dataset)), "\n", table(dataset), sep = "")
-# pie(table(dataset), labels = lbls, main = "XYZ")
+#pie(table(dataset), labels = lbls, main = "XYZ")
 library(plotrix)
 pie3D(as.vector(table(dataset)), labels = lbls, main = NA, explode = 0.1, radius = .9, labelcex = 1.2,  start = 0.01)
 title("XYZ", line = -5)
 
           
-# histogram          
+#histogram          
 hist(as.numeric(data0[data0$colA == 'Abc' ,]$colB), main = 'XYZ', xlab = 'time', breaks = 15, xlim = c(0, 4000), col = 'darksalmon', labels = TRUE)
           
           
-# Add Straight Lines to a Plot
+#Add Straight Lines to a Plot
 abline(ls2, col = 'red')
 legend('bottomright', c('regression line'), col = 'red', lwd = 1, bty = 'n')
           
           
-# fit model with every variable (except for target) other than 1 independent variable
+#fit model with every variable (except for target) other than 1 independent variable
 model <- modeltype(DV ~ . -excluded_IV, data = abc)
 
           
-# R markdown knit to pdf, prevent line cutoff
+#R markdown knit to pdf, prevent line cutoff
 library(knitr)
 opts_chunk$set(tidy.opts = list(width.cutoff = 60), tidy = TRUE)
           
  
           
-# train-test split, i.e., 80-20
+#train-test split, i.e., 80-20
 set.seed(1234)
 sample_row_num <- sample(nrow(df), nrow(df) * 0.8)
 
@@ -727,14 +734,14 @@ train <- df[sample_row_num, ]
 test <- df[-sample_row_num, ]          
 
           
-# Fit linear regression on training data, full model (use all independent variables)
+#Fit linear regression on training data, full model (use all independent variables)
 lr_full <- lm(Y ~ ., data = train)
 summary(lr_full)
 
-# Predict on test data
+#Predict on test data
 predict_app <- predict(lr_full, test)
           
-# Produce test error, mse
+#Produce test error, mse
 test_error <- mean((test$Y - predict_app)^2)
 test_error          
           
