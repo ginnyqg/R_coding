@@ -512,7 +512,12 @@ quantile(km_fit, probs = 1 - c(0.75, 0.5, 0.25))
 #concatenate 2 dataframes vertically
 dat <- rbind(a, b)               
       
-               
+
+# Plot survival curve on test_stayer using CPH
+fit_test <- survfit(fit_cox_f, data = test)
+ggsurvplot(fit_test, conf.int = TRUE, surv.median.line = "hv")	       
+	       
+	       
                
 #check if packages needed already installed, if not installing, loading required packages  
                
