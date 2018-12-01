@@ -752,10 +752,37 @@ test_error
           
 
     
+#density plot on predition
+ggplot(summary(pred_stayer)$table, aes(x = test_stayer$Prediction)) +
+      geom_density(fill = 'cyan') + 
+      labs(x = "Days", y = "Density") +
+      labs(title = 'ABC') + 
+      theme(plot.title = element_text(hjust = 0.5), title = element_text(size = 14, face = 'bold'),
+      axis.text.x = element_text(face = 'bold', size = 12),
+	  axis.text.y = element_text(face = 'bold', size = 12)) + 
+	  xlim(1050, 1350)
+
+
+#histogram plot on predition
+ggplot(data = summary(pred_stayer)$table, aes(test_stayer$Prediction)) + 
+       geom_histogram(fill = "blue", col = 'black', , alpha = 0.4) + 
+       labs(title = "ABC") +
+       labs(x = "Days", y = "Count") + 
+       theme(plot.title = element_text(hjust = 0.5), title = element_text(size = 14, face = 'bold'),
+       		 axis.text.x = element_text(face = 'bold', size = 12),
+			 axis.text.y = element_text(face = 'bold', size = 12))          
           
           
           
-          
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
           
           
           
