@@ -773,7 +773,21 @@ ggplot(data = summary(pred_stayer)$table, aes(test_stayer$Prediction)) +
 			 axis.text.y = element_text(face = 'bold', size = 12))          
           
           
-          
+#add segments, customize gridline in R
+tot <- 0:15000
+targ <- 0.2212 * tot
+plot(tot, targ, type = 'l', lwd = 2, xlab = "Number of total data", ylab = "Cumulative number of target data", yaxt = "n", ylim = c(0, 3500))
+axis(2, at = seq(0, 3500, by = 500), las = 2)
+
+
+segments(0, 0, 0.2212 * 15000, 0.2212 * 15000, lwd = 3)
+segments(0.2212 * 15000, 0.2212 * 15000, 15000, 0.2212 * 15000, lwd = 3)
+
+grid(nx = NA, ny = NULL)
+	  
+	  
+	  
+	  
 	  
 	  
 	  
