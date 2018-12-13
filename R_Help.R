@@ -366,7 +366,11 @@ df_new <- df[, -which(grepl("abc", colnames(df)))]
                    
 #find length of a vector
 length(vec)
-                   
+		  
+#find length of column in a dataframe		  
+NROW(col)
+		  
+		  
 #save top 20 variable importance plot in pdf, png, etc.                   
 pdf('filepath.pdf')
 plot(gg_vimp(file, nvar = 20))
