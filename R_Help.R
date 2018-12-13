@@ -294,7 +294,9 @@ output <- get(load('pred_test.RData'))
 o <- as.matrix(output)[1:100,] #to compare with first 100 rows of o, for example
 
 confusionMatrix(o, l[1:100,])
-                         
+confusionMatrix(table(prediction, actual_label))
+			 	 
+			 
 #select rows where ColB (from ColA, ColB, ColC) has value of 1 (satify a condition)
 matrix[matirx[, 'ColB'] == 1, ]                        
 matrix[matirx[, 2] == 1, ]
