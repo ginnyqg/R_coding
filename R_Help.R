@@ -20,6 +20,11 @@ dataset_you_name_it = read.table('file name.format', sep = ',')
 #import csv file, first row is not header
 dataset_you_name_it = read.table('file name.format', header = F, sep = ',')
 
+#read xls file, skip first row
+require(gdata)
+raw <- read.xls ("Abc.xls", sheet = 1, skip = 1)
+
+
 #examine first few rows
 head(dataset_you_name_it)
 
