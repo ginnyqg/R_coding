@@ -1,4 +1,5 @@
 #import csv Data
+setwd('path')
 dataset_you_name_it <- read.csv('csv file path')
 dataset_you_name_it <- read.csv('url/file.csv', header = T, na.string = ',')
 
