@@ -803,10 +803,12 @@ segments(0.2212 * 15000, 0.2212 * 15000, 15000, 0.2212 * 15000, lwd = 3)
 grid(nx = NA, ny = NULL)
 	  
 	  
+#add 123 five tims before a vactor c(2, 0, 1, 8)
+prepend(c(2, 0, 1, 8), rep(123, 5))
 	  
 	  
-	  
-	  
+#add 123 five tims after a vactor c(2, 0, 1, 8)
+append(c(2, 0, 1, 8), rep(123, 5))	  
 	  
 	  
 	  
