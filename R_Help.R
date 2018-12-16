@@ -736,7 +736,9 @@ hist(as.numeric(data0[data0$colA == 'Abc' ,]$colB), main = 'XYZ', xlab = 'time',
 #Add Straight Lines to a Plot
 abline(ls2, col = 'red')
 legend('bottomright', c('regression line'), col = 'red', lwd = 1, bty = 'n')
-          
+legend('bottomright', c("best curve", "model", "baseline"), col = c("red", "green", "blue"), 
+	cex = 1, lwd = 2)
+	  
           
 #fit model with every variable (except for target) other than 1 independent variable
 model <- modeltype(DV ~ . -excluded_IV, data = abc)
