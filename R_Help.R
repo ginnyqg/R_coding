@@ -256,6 +256,8 @@ mean(dataset_you_name_it$column1, na.rm = T)
 
 #check if a data frame contains missing value
 na.fail()
+table(is.na(df))
+
 
 #if returns an error, has missing value
 #if outputs the same as input, do not have missing value
