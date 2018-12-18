@@ -793,10 +793,10 @@ ggplot(data = summary(pred_stayer)$table, aes(test_stayer$Prediction)) +
           
 
 	  
-#VarImp in xgboost package
+#VarImp in xgboost package (Top 10)
 library(ggplot2)	  
 library(Ckmeans.1d.dp)
-xgb.ggplot.importance (importance_matrix = mat[1:10], rel_to_first = TRUE) + 
+xgb.ggplot.importance (importance_matrix = mat[1 : 10], rel_to_first = TRUE) + 
 	  labs(title = "Feature Importance (Top 10)") + labs(x = "Features", y = "Relative Importance") + 
 	  theme(plot.title = element_text(hjust = 0.5), 
 		title = element_text(size = 14, face = 'bold'),
