@@ -831,6 +831,10 @@ append(c(2, 0, 1, 8), rep(123, 5))
 #plot prettier tree	  
 library(rpart)
 library(rpart.plot)
+rpartContr = rpart.control(minsplit = 50,
+                           cp = 1e-08, 
+                           minbucket = 100)
+tree <- rpart(DV ~., method = "class", control = rpartContr)
 rpart.plot(tree, box.palette="RdBu", shadow.col="gray", nn=TRUE)
 	  
 	  
