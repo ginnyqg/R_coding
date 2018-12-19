@@ -826,9 +826,12 @@ prepend(c(2, 0, 1, 8), rep(123, 5))
 	  
 #add 123 five tims after a vactor c(2, 0, 1, 8)
 append(c(2, 0, 1, 8), rep(123, 5))	  
+
 	  
-	  
-	  
+#plot prettier tree	  
+library(rpart)
+library(rpart.plot)
+rpart.plot(tree, box.palette="RdBu", shadow.col="gray", nn=TRUE)
 	  
 	  
 	  
