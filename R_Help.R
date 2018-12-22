@@ -312,6 +312,9 @@ subset(matrix, matrix[, 2] == 1)
 #select rows from dataset where a column meet a condition                         
 dat[which(dat$colA > 0), ]
 
+#from range of column 3 from type of object: environment, pred			 
+range(as.data.frame(pred)[which(as.data.frame(pred)[,1] == 1), ][,3])
+			 
 
 #change value from one to another in a column                         
 dat$colA <- gsub("Abc", 1, dat$colA)                         
