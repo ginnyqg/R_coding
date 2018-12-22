@@ -312,7 +312,7 @@ subset(matrix, matrix[, 2] == 1)
 #select rows from dataset where a column meet a condition                         
 dat[which(dat$colA > 0), ]
 
-#from range of column 3 from type of object: environment, pred			 
+#from range of column 3 from type of object: environment, pred, when pred's first column meets a condition		 
 range(as.data.frame(pred)[which(as.data.frame(pred)[,1] == 1), ][,3])
 			 
 
