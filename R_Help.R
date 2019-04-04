@@ -281,6 +281,11 @@ df <- subset(df, select = -c(columnA))
 df <- df[1 : length(names(df)) -1]
 
 
+#drop columns by name
+drops <- c("colA", "colB")
+new_df <- df[ , !(names(df) %in% drops)]
+
+
 #ggplot by category
 ggplot(df_5YEAR, aes(x = timeframe_quit)) + geom_bar(stat="count", fill = '#56B4E9', color = '#56B4E9', alpha = 0.6) + facet_grid(year~.) + geom_text(stat = 'count', aes(label=..count..), vjust = 0.2) + labs(x = 'Timeframe quit', y = 'Count') + ggtitle('Count of timeframes thinking of quitting smoking by year') + theme(plot.title = element_text(hjust = 0.5), panel.background = element_rect(fill = NA, color = "black"))
 
