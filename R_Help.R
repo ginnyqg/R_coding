@@ -846,14 +846,6 @@ tree <- rpart(DV ~., method = "class", control = rpartContr)
 rpart.plot(tree, box.palette="RdBu", shadow.col="gray", nn=TRUE)
 	  
 	  
-	  
-	  
-save work sessions   
-          
-          
-          
-          
-          
           
           
           
